@@ -1,0 +1,175 @@
+<!-- page {
+  "title": "CIR · Cost efficient intelligence research · DotrixAI",
+  "description": "CIR is an active DotrixAI research program. It studies architectures with lower cost to capability than strong Transformers.",
+  "nav": "cir"
+} -->
+<header class="page_head">
+  <div class="u-container">
+    <div class="grid is-end">
+      <div class="col-7">
+        <span class="section_eyebrow u-mono"><span class="status is-live">Active research</span> &nbsp;·&nbsp; Research program</span>
+        <h1 class="u-display-xxl" data-split>CIR</h1>
+        <p class="u-display-m u-faded u-mt-6 u-max-20">Cost efficient intelligence research.</p>
+      </div>
+      <div class="col-5">
+        <p class="u-paragraph-l u-max-40 hero_side">CIR investigates architectures and learning systems that may lower total cost. The aim is equivalent model capability for less economic cost.</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="section is-tight-top" aria-label="Program status">
+  <div class="u-container">
+    <div class="note reveal">
+      <span class="u-mono">Status</span>
+      <p>CIR is active research. No benchmark results have been published yet. Current experimental architectures are not the final CIR architecture.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section is-main" aria-labelledby="question-title">
+  <div class="u-container">
+    <div class="grid">
+      <div class="col-4">
+        <span class="section_eyebrow u-mono">01 · Research question</span>
+      </div>
+      <div class="col-8">
+        <h2 class="u-display-l u-mb-6 reveal" id="question-title">Can a different architecture reach the same capability for substantially less total cost?</h2>
+        <div class="prose u-paragraph-s u-max-60 reveal">
+          <p>The comparison point is a strong Transformer system. Q stands for matched useful model capability.</p>
+          <p>CIR searches for designs that make the ratio below meaningfully smaller than one.</p>
+        </div>
+        <code class="formula u-mt-6 reveal"><span class="formula_key">minimize</span>&nbsp; TotalCost(CIR, Q) / TotalCost(Strong Transformer, Q)</code>
+        <p class="u-paragraph-xs u-faded u-mt-6 reveal">A ratio of 0.5 would mean equal capability at half the total cost. This is the objective, not a result.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section is-light is-main" aria-labelledby="cost-title">
+  <div class="u-container">
+    <div class="grid">
+      <div class="col-4">
+        <span class="section_eyebrow u-mono">02 · Cost to capability</span>
+        <h2 class="u-display-m u-max-20 reveal" id="cost-title">Proxies are useful. None of them is the cost.</h2>
+      </div>
+      <div class="col-8">
+        <p class="u-paragraph-s u-max-60 u-mb-6 reveal">CIR does not optimize any single proxy on its own. It asks a more economically meaningful question. How much total cost does a given level of capability require?</p>
+        <ul class="rows reveal" aria-label="Metrics CIR does not optimize alone">
+          <li><div class="row"><h3>FLOPs</h3><span class="row_tag">Ignores memory traffic and utilization</span></div></li>
+          <li><div class="row"><h3>Token throughput</h3><span class="row_tag">Says little about capability reached</span></div></li>
+          <li><div class="row"><h3>Parameter count</h3><span class="row_tag">Active compute can differ greatly</span></div></li>
+          <li><div class="row"><h3>Bits per byte</h3><span class="row_tag">One view of capability, not all of it</span></div></li>
+          <li><div class="row"><h3>CPU time</h3><span class="row_tag">Depends on hardware and implementation</span></div></li>
+          <li><div class="row"><h3>Inference speed</h3><span class="row_tag">Leaves out training cost entirely</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section is-main" aria-labelledby="method-title">
+  <div class="u-container">
+    <span class="section_eyebrow u-mono">03 · Method</span>
+    <h2 class="u-display-l u-max-30 u-mb-8 reveal" id="method-title">How CIR evaluates a candidate.</h2>
+    <div class="tiles">
+      <div class="tile reveal">
+        <span class="u-mono">Baseline</span>
+        <h3>Why the Transformer</h3>
+        <p>It is the strongest, most studied and most optimized design available. Beating a weak baseline proves little.</p>
+      </div>
+      <div class="tile reveal">
+        <span class="u-mono">Metric</span>
+        <h3>Why BPB alone is insufficient</h3>
+        <p>Bits per byte measures compression of text. Two models with equal BPB can differ in recall, reasoning and long context use.</p>
+      </div>
+      <div class="tile reveal">
+        <span class="u-mono">Capability</span>
+        <h3>Capability is multidimensional</h3>
+        <p>Candidates are compared across several capability dimensions. A gain on one dimension cannot hide a loss on another.</p>
+      </div>
+      <div class="tile reveal">
+        <span class="u-mono">Hardware</span>
+        <h3>Hardware aware evaluation</h3>
+        <p>Cost is measured on real CPUs and GPUs. A design that saves FLOPs but stalls on memory can cost more.</p>
+      </div>
+      <div class="tile reveal">
+        <span class="u-mono">Rigor</span>
+        <h3>Matched and fair comparisons</h3>
+        <p>Baselines get the same tuning effort and budget. Results are checked across seeds and scales before any claim.</p>
+      </div>
+      <div class="tile reveal">
+        <span class="u-mono">Honesty</span>
+        <h3>Measured, estimated, projected</h3>
+        <p>These three kinds of numbers stay clearly labeled. Unexpected failures are recorded, not hidden.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section is-flush-top" aria-labelledby="areas-title">
+  <div class="u-container">
+    <div class="grid">
+      <div class="col-4">
+        <span class="section_eyebrow u-mono">04 · Areas investigated</span>
+        <h2 class="u-display-m u-max-20 reveal" id="areas-title">Where CIR looks for cost.</h2>
+      </div>
+      <div class="col-8">
+        <ul class="rows reveal" aria-label="CIR investigation areas">
+          <li><div class="row"><h3><span class="row_index">01</span>Neural architecture</h3><span class="row_tag">Model structure</span></div></li>
+          <li><div class="row"><h3><span class="row_index">02</span>Recurrent and state mechanisms</h3><span class="row_tag">Model structure</span></div></li>
+          <li><div class="row"><h3><span class="row_index">03</span>Attention</h3><span class="row_tag">Model structure</span></div></li>
+          <li><div class="row"><h3><span class="row_index">04</span>Memory</h3><span class="row_tag">Model structure</span></div></li>
+          <li><div class="row"><h3><span class="row_index">05</span>Learning efficiency</h3><span class="row_tag">Learning</span></div></li>
+          <li><div class="row"><h3><span class="row_index">06</span>Optimizer interaction</h3><span class="row_tag">Learning</span></div></li>
+          <li><div class="row"><h3><span class="row_index">07</span>Parameter activity</h3><span class="row_tag">Learning</span></div></li>
+          <li><div class="row"><h3><span class="row_index">08</span>Data efficiency</h3><span class="row_tag">Learning</span></div></li>
+          <li><div class="row"><h3><span class="row_index">09</span>CPU and GPU hardware behavior</h3><span class="row_tag">Systems</span></div></li>
+          <li><div class="row"><h3><span class="row_index">10</span>Memory traffic</h3><span class="row_tag">Systems</span></div></li>
+          <li><div class="row"><h3><span class="row_index">11</span>Training systems</h3><span class="row_tag">Systems</span></div></li>
+          <li><div class="row"><h3><span class="row_index">12</span>Capability evaluation</h3><span class="row_tag">Evaluation</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section is-main" aria-labelledby="claims-title">
+  <div class="u-container">
+    <div class="panel">
+      <div class="grid">
+        <div class="col-5">
+          <span class="section_eyebrow u-mono">05 · Scope of claims</span>
+          <h2 class="u-display-m u-max-20 reveal" id="claims-title">What CIR does not claim.</h2>
+          <p class="u-paragraph-xs u-faded u-mt-6 u-max-40 reveal">CIR is part of DotrixAI, not the whole lab. Other programs may follow.</p>
+        </div>
+        <div class="col-7">
+          <ul class="rows reveal" aria-label="Claims CIR does not make">
+            <li><div class="row"><h3>It has not replaced the Transformer.</h3></div></li>
+            <li><div class="row"><h3>It is not proven at frontier scale.</h3></div></li>
+            <li><div class="row"><h3>It claims no fixed cost multiple over Transformers.</h3></div></li>
+            <li><div class="row"><h3>It claims no proven reasoning advantage.</h3></div></li>
+            <li><div class="row"><h3>It makes no claim of outside adoption.</h3></div></li>
+            <li><div class="row"><h3>Today's experimental designs are not the final architecture.</h3></div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section is-flush-top" aria-labelledby="cir-next-title">
+  <div class="u-container">
+    <div class="grid is-end">
+      <div class="col-7">
+        <h2 class="u-display-m u-max-30 reveal" id="cir-next-title">Detailed benchmark evidence may be published as the program matures.</h2>
+      </div>
+      <div class="col-5 reveal">
+        <div class="btn_group">
+          <a class="btn" href="/evidence"><span>Our evidence standard</span><span class="btn_icon" aria-hidden="true">&rarr;</span></a>
+          <a class="btn is-secondary" href="/research"><span>All research</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

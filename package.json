@@ -1,0 +1,14 @@
+{
+  "name": "dotrixai-web",
+  "private": true,
+  "type": "module",
+  "description": "DotrixAI website. Static HTML and CSS assembled by a dependency free build into dist/.",
+  "scripts": {
+    "dev": "node tools/serve.mjs",
+    "build": "node tools/build.mjs && node tools/check-copy.mjs && node tools/check-links.mjs",
+    "check": "npm run build && node --test test/site.test.mjs",
+    "check:browser": "node tools/check-browser.mjs",
+    "brand": "python work/make_brand.py"
+  },
+  "engines": { "node": ">=20" }
+}
