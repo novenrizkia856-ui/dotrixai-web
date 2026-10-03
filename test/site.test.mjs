@@ -57,7 +57,7 @@ test("the current page is marked in the navigation", () => {
   }
 });
 
-test("no invented contact address is published while none is configured", async () => {
+test("the contact address matches site.config.mjs", async () => {
   const site = (await import(new URL("../src/site.config.mjs", import.meta.url))).default;
   const contact = read("contact.html");
   if (!site.contactEmail) {
@@ -66,4 +66,37 @@ test("no invented contact address is published while none is configured", async 
   } else {
     assert.match(contact, new RegExp(`mailto:${site.contactEmail}`));
   }
+});
+
+test("dotrixai.com (no www) is the only host in canonical, og, sitemap and robots", () => {
+  for (const f of pages) {
+    const html = read(f);
+    assert.doesNotMatch(html, /https?:\/\/www\.dotrixai\.com/, f);
+    for (const m of html.matchAll(/(?:rel="canonical" href|property="og:url" content|property="og:image" content|name="twitter:image" content)="([^"]+)"/g)) {
+      assert.match(m[1], /^https:\/\/dotrixai\.com\//, `${f}: ${m[1]}`);
+    }
+  }
+  for (const loc of readFileSync(join(dist, "sitemap.xml"), "utf8").matchAll(/<loc>([^<]+)<\/loc>/g)) {
+    assert.match(loc[1], /^https:\/\/dotrixai\.com\//, loc[1]);
+  }
+  assert.match(readFileSync(join(dist, "robots.txt"), "utf8"), /Sitemap: https:\/\/dotrixai\.com\/sitemap\.xml/);
+});
+
+test("vercel.json never redirects between apex and www", () => {
+  // The www <-> apex redirect belongs to Vercel's domain settings. A second one
+  // here would loop against it (see README, Domains).
+  const vercel = JSON.parse(readFileSync(join(root, "vercel.json"), "utf8"));
+  for (const r of [...(vercel.redirects || []), ...(vercel.rewrites || [])]) {
+    assert.doesNotMatch(JSON.stringify(r), /dotrixai\.com/, JSON.stringify(r));
+  }
+});
+
+test("preview hosts are noindex, production hosts are not", () => {
+  const vercel = JSON.parse(readFileSync(join(root, "vercel.json"), "utf8"));
+  const rule = vercel.headers.find((h) => h.headers.some((x) => x.key === "X-Robots-Tag"));
+  assert.ok(rule, "X-Robots-Tag rule missing");
+  const host = new RegExp("^" + rule.has.find((c) => c.type === "host").value + "$");
+  assert.ok(host.test("dotrixai-web.vercel.app"));
+  assert.ok(host.test("dotrixai-web-git-main-someone.vercel.app"));
+  for (const prod of ["dotrixai.com", "www.dotrixai.com"]) assert.ok(!host.test(prod), prod);
 });

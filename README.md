@@ -62,6 +62,19 @@ npx vercel --prod
 
 If you change the inline script in `src/partials/layout.html`, update its `sha256` in the CSP in `vercel.json`. `npm run check` catches a mismatch.
 
+## Domains
+
+`https://dotrixai.com` (no www) is the canonical host. Canonical tags, Open Graph URLs, `sitemap.xml` and `robots.txt` all use it, set by `origin` in `src/site.config.mjs`.
+
+The www redirect lives in **Vercel → Project → Settings → Domains**, not in `vercel.json`:
+
+- `dotrixai.com`: connected to the production branch, no redirect
+- `www.dotrixai.com`: redirect to `dotrixai.com`, 308 permanent
+
+Don't also add a host redirect to `vercel.json`. If the dashboard and the config disagree, requests loop between the two hosts. `npm run check` fails if one appears.
+
+`*.vercel.app` preview hosts send `X-Robots-Tag: noindex` so they aren't indexed as duplicates.
+
 ## Placeholders
 
 - The contact address is `contactEmail` in `src/site.config.mjs` (currently the founder's email).
