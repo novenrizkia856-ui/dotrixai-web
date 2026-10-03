@@ -64,5 +64,5 @@ If you change the inline script in `src/partials/layout.html`, update its `sha25
 
 ## Placeholders
 
-- `contactEmail` in `src/site.config.mjs` is empty until a real inbox exists.
+- The contact address is `contactEmail` in `src/site.config.mjs` (currently the founder's email).
 - The Publications list on `/evidence` reads "No public papers yet". Add entries there once something is published.
