@@ -496,6 +496,12 @@ main:focus, footer:focus { outline: none; }
   .footer_groups { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 2rem; }
 }
 
+.footer_bottom_right { display: inline-flex; align-items: center; gap: 1.25rem; }
+.footer_social { display: inline-flex; align-items: center; justify-content: center; width: 2rem; height: 2rem; margin: -0.5rem 0; border-radius: var(--radius); color: var(--cloud-medium); transition: color 0.2s, background-color 0.2s; }
+.footer_social:hover { color: var(--ivory-light); background: rgba(250, 249, 245, 0.08); }
+.icon_x { flex: none; }
+.btn .icon_x { width: 0.875rem; height: 0.875rem; }
+
 /* ---------- 404 ---------- */
 .not_found { min-height: 60vh; display: flex; align-items: center; }
 

@@ -77,5 +77,6 @@ Don't also add a host redirect to `vercel.json`. If the dashboard and the config
 
 ## Placeholders
 
+- The X profile is `xUrl` in `src/site.config.mjs` (footer icon, contact page, JSON-LD `sameAs`).
 - The contact address is `contactEmail` in `src/site.config.mjs` (currently the founder's email).
 - The Publications list on `/evidence` reads "No public papers yet". Add entries there once something is published.

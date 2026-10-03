@@ -24,6 +24,15 @@ export async function build({ quiet = false } = {}) {
     ? `<a class="btn" href="mailto:${site.contactEmail}"><span>${site.contactEmail}</span><span class="btn_icon" aria-hidden="true">&rarr;</span></a>`
     : `<p class="contact_pending u-detail">A public contact address will be listed here soon.</p>`;
 
+  const xIcon = `<svg class="icon_x" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>`;
+  const xLink = site.xUrl
+    ? `<a class="footer_social" href="${site.xUrl}" target="_blank" rel="noopener noreferrer me" aria-label="DotrixAI on X">${xIcon}</a>`
+    : "";
+  const xButton = site.xUrl
+    ? `<a class="btn is-secondary" href="${site.xUrl}" target="_blank" rel="noopener noreferrer me">${xIcon}<span>Follow @dotrixai on X</span></a>`
+    : "";
+  const sameAs = JSON.stringify([site.xUrl].filter(Boolean));
+
   const pages = readdirSync(join(src, "pages")).filter((f) => f.endsWith(".html"));
   const urls = [];
   for (const file of pages) {
@@ -51,7 +60,10 @@ export async function build({ quiet = false } = {}) {
       nav: markNav(nav),
       footer,
       content: body,
-      contactBlock
+      contactBlock,
+      xLink,
+      xButton,
+      sameAs
     };
     const fill = (s) => s.replace(/\{\{(\w+)\}\}/g, (m, k) => (k in vars ? vars[k] : m));
     // two passes: partials and page content may hold their own {{tokens}}
