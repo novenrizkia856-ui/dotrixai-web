@@ -233,7 +233,7 @@
           <li><div class="row"><div><h3>Static n gram heads</h3><p class="row_body">With the same heads on both sides, the recurrent specific edge fell to about zero.</p></div><span class="row_tag">Claim weakened</span></div></li>
           <li><div class="row"><div><h3>One global attention layer (B1A)</h3><p class="row_body">Matched the previous baseline at half the cost per token. BPB claims were lost.</p></div><span class="row_tag">Claim lost</span></div></li>
           <li><div class="row"><div><h3>Wider B1A at equal compute</h3><p class="row_body">BPB tied with A010. Recall was slightly worse.</p></div><span class="row_tag">Tie</span></div></li>
-          <li><div class="row"><div><h3>Windowed B1A</h3><p class="row_body">Saves only about 10 to 17% at this context length. Deprioritized for now.</p></div><span class="row_tag">Minor threat</span></div></li>
+          <li><div class="row"><div><h3>Windowed B1A</h3><p class="row_body">Estimated to save 10 to 30% per update at this context length. Timing is measured in R82.</p></div><span class="row_tag">Minor threat</span></div></li>
         </ul>
       </div>
     </div>
@@ -256,7 +256,7 @@
       <div class="tile reveal"><span class="u-mono">Architecture</span><h3>Longer context as the route to 0.50</h3><p>Moving from 4,096 to 8,192 tokens made A010's per token ratio worse.</p></div>
       <div class="tile reveal"><span class="u-mono">Architecture</span><h3>Static lookup as recall</h3><p>Lookup tables cannot perform in context associative recall. A softmax layer is still needed.</p></div>
       <div class="tile reveal"><span class="u-mono">Architecture</span><h3>Several hybrid variants</h3><p>Local selection, a surprisal cache and a per head hybrid layer each failed their gates.</p></div>
-      <div class="tile reveal"><span class="u-mono">Architecture</span><h3>Recurrent state replacing distant attention</h3><p>When attention was windowed, A010 lost as much quality as the Transformer did.</p></div>
+      <div class="tile reveal"><span class="u-mono">Architecture</span><h3>Recurrent state replacing distant attention</h3><p>When attention was windowed, A010 lost as much quality as the Transformer. Its state carried almost no distant copies.</p></div>
       <div class="tile reveal"><span class="u-mono">Analysis</span><h3>Mixer substitution reaching 0.50 here</h3><p>Replace attention with a free recurrent core. The per token ratio still stays at 0.55 to 0.72. {{tagEstimated}}</p></div>
       <div class="tile reveal"><span class="u-mono">Method</span><h3>Ranking architectures at 250 updates</h3><p>Rank correlation with final results was 0.09. Discovery runs now last 750 updates.</p></div>
       <div class="tile reveal"><span class="u-mono">Method</span><h3>Uncontrolled timing</h3><p>Sessions with unpinned cores or background load are quarantined and remeasured.</p></div>
@@ -332,7 +332,7 @@
       </div>
       <div class="col-8">
         <ul class="rows reveal" aria-label="Threats to the CIR claim">
-          <li><div class="row"><div><h3><span class="row_index">01</span>Stronger Transformer baselines</h3><p class="row_body">B1A already removed the BPB advantage. Cheaper Transformers may still exist.</p></div><span class="row_tag">Materialized</span></div></li>
+          <li><div class="row"><div><h3><span class="row_index">01</span>Stronger Transformer baselines</h3><p class="row_body">B1A already removed the BPB advantage. A windowed B1A may be 10 to 30% cheaper still.</p></div><span class="row_tag">Materialized</span></div></li>
           <li><div class="row"><div><h3><span class="row_index">02</span>Generic modules help Transformers too</h3><p class="row_body">Engram and n gram heads gave Transformers equal or larger gains.</p></div><span class="row_tag">Materialized</span></div></li>
           <li><div class="row"><div><h3><span class="row_index">03</span>An analytic cost bound</h3><p class="row_body">At this context length, swapping the mixer cannot reach the 0.50 gate.</p></div><span class="row_tag">Estimated</span></div></li>
           <li><div class="row"><div><h3><span class="row_index">04</span>Scaling degradation</h3><p class="row_body">Attention's share of cost shrinks with width. Mixer savings shrink with it.</p></div><span class="row_tag">Projected</span></div></li>
@@ -466,6 +466,7 @@
         <div class="btn_group">
           {{contactBlock}}
           {{xButton}}
+          {{githubButton}}
         </div>
       </div>
     </div>

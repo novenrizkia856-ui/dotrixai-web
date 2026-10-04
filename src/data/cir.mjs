@@ -66,12 +66,12 @@ export const latest = [
     body: "The earlier recall cost figure of 0.36 to 0.69 favoured CIR. Corrected, the advantage against the cheapest Transformers is marginal: 0.74 to 1.0."
   },
   {
-    title: "An analytic bound narrowed the search",
-    body: "At 4,096 tokens of context, replacing attention alone cannot reach the 0.50 gate. This holds even if the replacement were free. The search is moving to other primitives."
+    title: "R81 interim: the cheaper hybrid keeps little of the margin",
+    body: "At 750 updates, A025 keeps about 15% of A010's BPB margin over B1A. The BPB criterion will likely fail. The formal verdict is still pending."
   },
   {
-    title: "R81 is running",
-    body: "R81 adds thin recurrent mixers to the cheapest Transformer. Success and failure criteria were frozen before the run."
+    title: "The long context route narrowed further",
+    body: "No softmax model at this scale copies text from beyond about 2,000 tokens. The recurrent state carries almost none either. Only exact n gram lookup copies at any distance."
   }
 ];
 
@@ -201,6 +201,14 @@ export const evidence = [
     src: "I158, I177"
   },
   {
+    finding: "Verbatim copying from distant context",
+    status: ["supported"],
+    evidence: `At a gap of 2,560 tokens, A010 and B1A gain 0.04 bits per token. Exact n gram heads gain 2.9. ${kind("measured")}`,
+    meaning: "Neither attention nor recurrent state copies far at this scale. Only exact lookup does.",
+    limit: "One probe, 32 samples per gap.",
+    src: "I250"
+  },
+  {
     finding: "Cost sessions with uncontrolled core placement",
     status: ["quarantined"],
     evidence: "Per token ratios varied by more than the effects being measured.",
@@ -211,9 +219,9 @@ export const evidence = [
   {
     finding: "Thin recurrent mixers on the cheapest Transformer (A025)",
     status: ["evaluating"],
-    evidence: "Experiment R81, training to 1,500 updates.",
-    meaning: "Tests whether a cheap hybrid beats B1A on BPB or recall.",
-    limit: "No result yet.",
+    evidence: "At 750 updates it keeps about 15% of A010's BPB margin over B1A.",
+    meaning: "The BPB cost criterion of 0.90 will likely fail.",
+    limit: "Interim, one seed. No verdict yet.",
     src: "R81"
   }
 ];
@@ -328,7 +336,7 @@ ${table({
 export const capabilities = [
   { cap: "Language prediction (BPB)", status: "worse", note: "Against the cheapest Transformer: 1.23 to 1.27× the cost. A tie at equal compute." },
   { cap: "Short range copying", status: "better", note: "A010 copies best at a distance of 256 tokens. Compared with Transformers without n gram heads." },
-  { cap: "Long verbatim copying", status: "worse", note: "Models with exact n gram heads copy long spans far better." },
+  { cap: "Long verbatim copying", status: "worse", note: "At 2,560 tokens A010 and B1A copy almost nothing. Exact n gram heads keep about 2.9 bits." },
   { cap: "Associative recall", status: "mixed", note: "Better than expensive Transformers. Marginal against the cheapest: 0.74 to 1.0× the cost." },
   { cap: "Bracket closing", status: "better", note: "About one bit per token better at distances of 17 to 128. Exploratory probe, small sample." },
   { cap: "Grammar", status: "unreliable", note: "All models score near chance at 4M parameters with our instrument." },
@@ -355,7 +363,9 @@ const renderCapabilities = () => table({
 
 export const experiments = [
   { id: "R81", question: "Can thin recurrent mixers added to B1A beat B1A on BPB or recall cost?", status: "running",
-    note: "Frozen criteria: BPB cost ≤ 0.90 and recall cost ≤ 0.75. If both fail, the delta hybrid family is closed at this context length." },
+    note: "Frozen criteria: BPB cost ≤ 0.90 and recall cost ≤ 0.75. Interim curves suggest the BPB criterion will fail." },
+  { id: "R82", question: "How much can an optimized implementation save, and how cheap is a windowed B1A?", status: "queued",
+    note: "One canonical timing session after R81. It does not change the R81 verdict." },
   { id: "H032", question: "Can recurrence with negative eigenvalues track state where one attention layer cannot?", status: "queued",
     note: "Synthetic parity, modular counting and permutations. Prior art covers this idea, so any result is a narrow capability claim." },
   { id: "R74", question: "Can the dense projections of a mixing layer be removed without losing quality?", status: "queued",
@@ -388,7 +398,8 @@ export const timeline = [
   { date: "2 Oct", title: "First scaling point", body: "At width 448 the ratio rose to 0.72, still inside the signal gate." },
   { date: "3 Oct", title: "Generic modules close the gap", body: "Engram and n gram heads helped Transformers as much or more. The delta specific edge fell to about zero." },
   { date: "3 Oct", title: "Cheapest Transformer found: B1A", body: "One global attention layer matched the old baseline at half the cost per token." },
-  { date: "4 Oct", title: "Corrections and a new direction", body: "Equal compute gave a BPB tie. The recall estimator was corrected. An analytic bound redirected the search." }
+  { date: "4 Oct", title: "Corrections and a new direction", body: "Equal compute gave a BPB tie. The recall estimator was corrected. An analytic bound redirected the search." },
+  { date: "4 Oct", title: "Long copy probe", body: "Recurrent state carried almost no verbatim copies past an attention window. The long context route weakened further." }
 ];
 
 const renderTimeline = () => `<ol class="timeline" role="list">

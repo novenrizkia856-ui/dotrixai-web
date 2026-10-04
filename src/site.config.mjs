@@ -9,5 +9,6 @@ export default {
   contactEmail: "novenrizkia.8.5.6@gmail.com",
   // Official profiles. Shown in the footer and contact page, listed as sameAs.
   xUrl: "https://x.com/dotrixai",
+  githubUrl: "https://github.com/dotrixai",
   year: 2026
 };
