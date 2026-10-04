@@ -32,6 +32,8 @@ export async function build({ quiet = false } = {}) {
     ? `<a class="btn is-secondary" href="${site.xUrl}" target="_blank" rel="noopener noreferrer me">${xIcon}<span>Follow @dotrixai on X</span></a>`
     : "";
   const sameAs = JSON.stringify([site.xUrl].filter(Boolean));
+  // Research state rendered into {{cir*}} tokens; edit src/data/cir.mjs to update /cir.
+  const cir = (await import(pathToFileURL(join(src, "data", "cir.mjs")).href + "?t=" + Date.now())).tokens();
 
   const pages = readdirSync(join(src, "pages")).filter((f) => f.endsWith(".html"));
   const urls = [];
@@ -63,7 +65,8 @@ export async function build({ quiet = false } = {}) {
       contactBlock,
       xLink,
       xButton,
-      sameAs
+      sameAs,
+      ...cir
     };
     const fill = (s) => s.replace(/\{\{(\w+)\}\}/g, (m, k) => (k in vars ? vars[k] : m));
     // two passes: partials and page content may hold their own {{tokens}}

@@ -1,6 +1,6 @@
 <!-- page {
   "title": "CIR · Cost efficient intelligence research · DotrixAI",
-  "description": "CIR is an active DotrixAI research program. It studies architectures with lower cost to capability than strong Transformers.",
+  "description": "CIR is an active DotrixAI research program on lower cost to capability architectures. Current evidence, failures, threats and limitations.",
   "nav": "cir"
 } -->
 <header class="page_head">
@@ -9,148 +9,426 @@
       <div class="col-7">
         <span class="section_eyebrow u-mono"><span class="status is-live">Active research</span> &nbsp;·&nbsp; Research program</span>
         <h1 class="u-display-xxl" data-split>CIR</h1>
-        <p class="u-display-m u-faded u-mt-6 u-max-20">Cost efficient intelligence research.</p>
+        <p class="u-display-m u-faded u-mt-6 u-max-30">Researching lower cost to capability architectures and learning systems.</p>
       </div>
       <div class="col-5">
-        <p class="u-paragraph-l u-max-40 hero_side">CIR investigates architectures and learning systems that may lower total cost. The aim is equivalent model capability for less economic cost.</p>
+        <p class="u-paragraph-l u-max-40 hero_side">CIR is DotrixAI's first major research program. It compares candidate systems with strong Transformer baselines on total cost.</p>
       </div>
     </div>
   </div>
 </header>
 
-<section class="section is-tight-top" aria-label="Program status">
+<section class="section is-tight-top" aria-label="Research status disclaimer">
   <div class="u-container">
-    <div class="note reveal">
-      <span class="u-mono">Status</span>
-      <p>CIR is active research. No benchmark results have been published yet. Current experimental architectures are not the final CIR architecture.</p>
+    <div class="note is-strong reveal">
+      <span class="u-mono">Read first</span>
+      <p>CIR is an ongoing research program. Results shown below are provisional unless explicitly marked as reproduced or validated. Current candidates may be superseded as stronger baselines and new evidence are introduced.</p>
     </div>
   </div>
 </section>
 
-<section class="section is-main" aria-labelledby="question-title">
+<nav class="section is-flush-top" aria-label="On this page">
+  <div class="u-container">
+    <ul class="toc" role="list">
+      <li><a href="#latest-title">Latest update</a></li>
+      <li><a href="#objective-title">Objective</a></li>
+      <li><a href="#gates-title">Gates</a></li>
+      <li><a href="#state-title">Current state</a></li>
+      <li><a href="#claim-title">Current claim</a></li>
+      <li><a href="#evidence-title">Evidence</a></li>
+      <li><a href="#cost-title">Cost curve</a></li>
+      <li><a href="#baseline-title">Baselines</a></li>
+      <li><a href="#ruled-title">Ruled out</a></li>
+      <li><a href="#capability-title">Capability</a></li>
+      <li><a href="#scaling-title">Scaling</a></li>
+      <li><a href="#threats-title">Threats</a></li>
+      <li><a href="#active-title">Active work</a></li>
+      <li><a href="#timeline-title">Timeline</a></li>
+      <li><a href="#method-title">Method</a></li>
+      <li><a href="#limits-title">Limitations</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="section is-light" aria-labelledby="latest-title">
   <div class="u-container">
     <div class="grid">
       <div class="col-4">
-        <span class="section_eyebrow u-mono">01 · Research question</span>
+        <span class="section_eyebrow u-mono">Latest research update</span>
+        <h2 class="u-display-m u-max-20 reveal" id="latest-title"><time datetime="{{cirAsOfIso}}">{{cirAsOf}}</time></h2>
+        <p class="u-paragraph-xs u-faded u-mt-6 u-max-40 reveal">The honest position today: the program objective has not been reached.</p>
       </div>
-      <div class="col-8">
-        <h2 class="u-display-l u-mb-6 reveal" id="question-title">Can a different architecture reach the same capability for substantially less total cost?</h2>
-        <div class="prose u-paragraph-s u-max-60 reveal">
-          <p>The comparison point is a strong Transformer system. Q stands for matched useful model capability.</p>
-          <p>CIR searches for designs that make the ratio below meaningfully smaller than one.</p>
-        </div>
-        <code class="formula u-mt-6 reveal"><span class="formula_key">minimize</span>&nbsp; TotalCost(CIR, Q) / TotalCost(Strong Transformer, Q)</code>
-        <p class="u-paragraph-xs u-faded u-mt-6 reveal">A ratio of 0.5 would mean equal capability at half the total cost. This is the objective, not a result.</p>
+      <div class="col-8 reveal">
+        {{cirLatest}}
       </div>
     </div>
+  </div>
+</section>
+
+<section class="section is-main" aria-labelledby="objective-title">
+  <div class="u-container">
+    <div class="grid">
+      <div class="col-4">
+        <span class="section_eyebrow u-mono">01 · Research objective</span>
+      </div>
+      <div class="col-8">
+        <h2 class="u-display-l u-mb-6 reveal" id="objective-title">Reach the same capability for substantially less total cost.</h2>
+        <code class="formula reveal"><span class="formula_key">minimize</span>&nbsp; TotalCost(CIR, Q) / TotalCost(Strong Transformer, Q)</code>
+        <div class="prose u-paragraph-s u-max-60 u-mt-6 reveal">
+          <p>Q is matched capability. Both systems must reach the same level before costs are compared.</p>
+          <p>The primary metric is cost to capability. FLOPs, parameters, BPB, tokens per second and wall clock speed are inputs, not the target.</p>
+          <p>Every new claim must also be compared with the cheapest fair Transformer we know. We report two denominators side by side.</p>
+        </div>
+        <div class="compare u-mt-8 reveal">
+          <div>
+            <h3 class="u-display-xs">What total cost can include</h3>
+            <ul>
+              <li>Training compute and wall clock time</li>
+              <li>Hardware utilization</li>
+              <li>Memory, activations and optimizer state</li>
+              <li>Data exposure</li>
+              <li>Infrastructure, energy and amortized hardware</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="u-display-xs">Two denominators</h3>
+            <ul>
+              <li><strong>Standard.</strong> A strong Transformer with fair, generic improvements.</li>
+              <li><strong>Matched modules.</strong> The same Transformer given every generic module CIR uses.</li>
+              <li>The second isolates what is specific to CIR.</li>
+            </ul>
+          </div>
+        </div>
+        <ul class="rows is-single u-mt-8 reveal" aria-label="Number labels used on this page">
+          <li><div class="row"><div><h3>{{tagMeasured}}</h3><p class="row_body">Read directly from an instrument, such as BPB or time per token.</p></div></div></li>
+          <li><div class="row"><div><h3>{{tagEstimated}}</h3><p class="row_body">Computed from measurements, such as a cost ratio at matched Q.</p></div></div></li>
+          <li><div class="row"><div><h3>{{tagProjected}}</h3><p class="row_body">Extrapolated beyond what was run. Never mixed with the other two.</p></div></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section is-light is-main" aria-labelledby="gates-title">
+  <div class="u-container">
+    <div class="grid u-mb-8">
+      <div class="col-7">
+        <span class="section_eyebrow u-mono">02 · Research gates</span>
+        <h2 class="u-display-l reveal" id="gates-title">Impact gates, not milestones.</h2>
+      </div>
+      <div class="col-5">
+        <p class="u-paragraph-s hero_side reveal">Each gate is a cost ratio at matched capability. Status reflects only the latest evidence. A gate passed against a weaker baseline does not count against a stronger one.</p>
+      </div>
+    </div>
+    <div class="reveal">{{cirGates}}</div>
+  </div>
+</section>
+
+<section class="section is-main" aria-labelledby="state-title">
+  <div class="u-container">
+    <div class="grid">
+      <div class="col-4">
+        <span class="section_eyebrow u-mono">03 · Current research state</span>
+        <h2 class="u-display-m u-max-20 reveal" id="state-title">What is being compared, and on what.</h2>
+        <p class="u-paragraph-xs u-faded u-mt-6 u-max-40 reveal">Implementation details beyond this level stay private while the research is active.</p>
+      </div>
+      <div class="col-8">
+        <ul class="facts reveal" role="list" aria-label="Current research state">
+          <li><span class="u-mono">Strongest reproduced candidate</span><p><strong>A010.</strong> Two delta rule recurrent layers, then one softmax attention layer. Trained with Muon.</p></li>
+          <li><span class="u-mono">Strongest baseline</span><p><strong>B1A.</strong> A Transformer with a single global attention layer. Found by our own baseline attack.</p></li>
+          <li><span class="u-mono">Parameters</span><p>About 3.94M effective. A second width reaches about 7M. {{tagMeasured}}</p></li>
+          <li><span class="u-mono">Context and batch</span><p>4,096 tokens. Batch of 8 sequences, or 32,768 tokens per update.</p></li>
+          <li><span class="u-mono">Token budget</span><p>1,500 updates, about 49M tokens. English and Indonesian text.</p></li>
+          <li><span class="u-mono">Hardware</span><p>One commodity laptop CPU, Intel Core i5 13420H, two physical cores. No GPU yet.</p></li>
+          <li><span class="u-mono">Seeds</span><p>Two seeds for the main A010 comparisons. Most other results use one seed.</p></li>
+          <li><span class="u-mono">Cost to Q against B1A</span><p>BPB 1.23 to 1.27×. Associative recall 0.74 to 1.0×. {{tagEstimated}}</p></li>
+          <li><span class="u-mono">Cost to Q, earlier baselines</span><p>0.59 to 0.64× in BPB, two seeds. {{tagEstimated}}</p></li>
+          <li><span class="u-mono">Capability evidence</span><p>BPB, copying, associative recall and bracket closing. Grammar and reasoning are not yet measurable.</p></li>
+          <li><span class="u-mono">Scaling evidence</span><p>Three widths at small scale. Nothing above about 7M parameters.</p></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section is-flush-top" aria-labelledby="claim-title">
+  <div class="u-container">
+    <div class="panel is-dark">
+      <div class="grid">
+        <div class="col-4">
+          <span class="section_eyebrow u-mono">04 · Current claim</span>
+          <h2 class="u-display-m u-max-20 reveal" id="claim-title">Current claim</h2>
+          <p class="u-paragraph-xs u-mt-6 u-max-40 claim_meta reveal">Scope: about 4M parameters, 4,096 token context, one laptop CPU, up to 49M tokens.</p>
+        </div>
+        <div class="col-8 prose u-paragraph-m reveal">
+          <p>In this small regime, A010 matched a gated local global Transformer's BPB. It needed 0.63 to 0.64× of that model's training cost. This was reproduced across two seeds.</p>
+          <p>Our own baseline attack then found a cheaper Transformer, B1A. It matches that baseline at about half the cost per token.</p>
+          <p>Against B1A, A010 needs about 1.23 to 1.27× the cost to reach the same BPB. At equal compute the two tie. A010's recall advantage shrinks to marginal.</p>
+          <p><strong>CIR currently has no robust cost advantage over the cheapest fair Transformer we know.</strong> The program objective has not been reached.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section is-main" aria-labelledby="evidence-title">
+  <div class="u-container">
+    <div class="grid u-mb-8">
+      <div class="col-7">
+        <span class="section_eyebrow u-mono">05 · Evidence table</span>
+        <h2 class="u-display-l reveal" id="evidence-title">Positive, negative and superseded results, side by side.</h2>
+      </div>
+      <div class="col-5">
+        <p class="u-paragraph-s hero_side reveal">Superseded and quarantined results stay listed. Removing them would make the remaining evidence look stronger than it is.</p>
+      </div>
+    </div>
+    <div class="reveal">{{cirEvidence}}</div>
+    <p class="u-paragraph-xs u-faded u-mt-6 u-max-60">Reproduced means two seeds with identical protocol. Preliminary means one seed or one run. Contested means a stronger baseline or a known confound threatens the result.</p>
   </div>
 </section>
 
 <section class="section is-light is-main" aria-labelledby="cost-title">
   <div class="u-container">
+    <div class="grid u-mb-8">
+      <div class="col-7">
+        <span class="section_eyebrow u-mono">06 · Cost to capability</span>
+        <h2 class="u-display-l reveal" id="cost-title">A curve, not a headline number.</h2>
+      </div>
+      <div class="col-5">
+        <p class="u-paragraph-s hero_side reveal">An advantage at one quality level can vanish at another. We report cost at several levels of Q.</p>
+      </div>
+    </div>
+    <div class="grid u-mb-8">
+      <div class="col-6">
+        <code class="formula reveal"><span class="formula_key">TotalCostRatio(Q) ≈</span> ρ_u × ρ_c</code>
+      </div>
+      <div class="col-6">
+        <ul class="rows reveal" aria-label="Cost decomposition terms">
+          <li><div class="row"><div><h3>ρ_u</h3><p class="row_body">Relative updates, or tokens, needed to reach matched Q.</p></div></div></li>
+          <li><div class="row"><div><h3>ρ_c</h3><p class="row_body">Relative cost per update, measured on one canonical instrument.</p></div></div></li>
+          <li><div class="row"><div><h3>A010 against B1A</h3><p class="row_body">ρ_u about 0.70, ρ_c about 1.75 to 1.80. So the cost ratio is about 1.23 to 1.27. {{tagEstimated}}</p></div></div></li>
+        </ul>
+      </div>
+    </div>
+    {{cirCurve}}
+    <p class="u-paragraph-xs u-faded u-mt-6 u-max-60">The cheapest Transformer, B1A, is not on this chart. Its ratios come from a different cost session. Ratios are only compared within one valid session.</p>
+  </div>
+</section>
+
+<section class="section is-main" aria-labelledby="baseline-title">
+  <div class="u-container">
     <div class="grid">
       <div class="col-4">
-        <span class="section_eyebrow u-mono">02 · Cost to capability</span>
-        <h2 class="u-display-m u-max-20 reveal" id="cost-title">Proxies are useful. None of them is the cost.</h2>
+        <span class="section_eyebrow u-mono">07 · Baseline adversary</span>
+        <h2 class="u-display-m u-max-20 reveal" id="baseline-title">We keep making the Transformer stronger.</h2>
+        <p class="u-paragraph-xs u-faded u-mt-6 u-max-40 reveal">A baseline lane acts as an adversary. Several CIR claims weakened or disappeared as a result.</p>
       </div>
       <div class="col-8">
-        <p class="u-paragraph-s u-max-60 u-mb-6 reveal">CIR does not optimize any single proxy on its own. It asks a more economically meaningful question. How much total cost does a given level of capability require?</p>
-        <ul class="rows reveal" aria-label="Metrics CIR does not optimize alone">
-          <li><div class="row"><h3>FLOPs</h3><span class="row_tag">Ignores memory traffic and utilization</span></div></li>
-          <li><div class="row"><h3>Token throughput</h3><span class="row_tag">Says little about capability reached</span></div></li>
-          <li><div class="row"><h3>Parameter count</h3><span class="row_tag">Active compute can differ greatly</span></div></li>
-          <li><div class="row"><h3>Bits per byte</h3><span class="row_tag">One view of capability, not all of it</span></div></li>
-          <li><div class="row"><h3>CPU time</h3><span class="row_tag">Depends on hardware and implementation</span></div></li>
-          <li><div class="row"><h3>Inference speed</h3><span class="row_tag">Leaves out training cost entirely</span></div></li>
+        <ul class="rows reveal" aria-label="Baseline upgrades and their effect on CIR claims">
+          <li><div class="row"><div><h3>Optimizer: Muon for both sides</h3><p class="row_body">The pure recurrent advantage disappeared. The Transformer won by 0.051 BPB.</p></div><span class="row_tag">Claim withdrawn</span></div></li>
+          <li><div class="row"><div><h3>Gated blocks for the Transformer</h3><p class="row_body">The strongest Transformer in quality. A010 still held at 0.59 to 0.63.</p></div><span class="row_tag">Claim narrowed</span></div></li>
+          <li><div class="row"><div><h3>Local global attention</h3><p class="row_body">9% cheaper per token at nearly equal quality. Early Q ratios rose to 0.78 to 0.82.</p></div><span class="row_tag">Claim narrowed</span></div></li>
+          <li><div class="row"><div><h3>Learning rate screening for baselines</h3><p class="row_body">An inherited baseline learning rate was flagged. Dependent claims are marked contested until attacked.</p></div><span class="row_tag">Rule added</span></div></li>
+          <li><div class="row"><div><h3>Engram memory module</h3><p class="row_body">Helped the Transformer more than A010, closing about 63% of the margin.</p></div><span class="row_tag">Claim weakened</span></div></li>
+          <li><div class="row"><div><h3>Static n gram heads</h3><p class="row_body">With the same heads on both sides, the recurrent specific edge fell to about zero.</p></div><span class="row_tag">Claim weakened</span></div></li>
+          <li><div class="row"><div><h3>One global attention layer (B1A)</h3><p class="row_body">Matched the previous baseline at half the cost per token. BPB claims were lost.</p></div><span class="row_tag">Claim lost</span></div></li>
+          <li><div class="row"><div><h3>Wider B1A at equal compute</h3><p class="row_body">BPB tied with A010. Recall was slightly worse.</p></div><span class="row_tag">Tie</span></div></li>
+          <li><div class="row"><div><h3>Windowed B1A</h3><p class="row_body">Saves only about 10 to 17% at this context length. Deprioritized for now.</p></div><span class="row_tag">Minor threat</span></div></li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section is-main" aria-labelledby="method-title">
+<section class="section is-light is-main" aria-labelledby="ruled-title">
   <div class="u-container">
-    <span class="section_eyebrow u-mono">03 · Method</span>
-    <h2 class="u-display-l u-max-30 u-mb-8 reveal" id="method-title">How CIR evaluates a candidate.</h2>
+    <div class="grid u-mb-8">
+      <div class="col-7">
+        <span class="section_eyebrow u-mono">08 · Reduced uncertainty</span>
+        <h2 class="u-display-l reveal" id="ruled-title">What We Have Ruled Out</h2>
+      </div>
+      <div class="col-5">
+        <p class="u-paragraph-s hero_side reveal">Each item below closed a branch of the search. That makes the next experiment cheaper to choose.</p>
+      </div>
+    </div>
+    <div class="tiles">
+      <div class="tile reveal"><span class="u-mono">Architecture</span><h3>Pure recurrence under a strong optimizer</h3><p>A delta rule model loses to a Muon trained Transformer at this scale.</p></div>
+      <div class="tile reveal"><span class="u-mono">Architecture</span><h3>Longer context as the route to 0.50</h3><p>Moving from 4,096 to 8,192 tokens made A010's per token ratio worse.</p></div>
+      <div class="tile reveal"><span class="u-mono">Architecture</span><h3>Static lookup as recall</h3><p>Lookup tables cannot perform in context associative recall. A softmax layer is still needed.</p></div>
+      <div class="tile reveal"><span class="u-mono">Architecture</span><h3>Several hybrid variants</h3><p>Local selection, a surprisal cache and a per head hybrid layer each failed their gates.</p></div>
+      <div class="tile reveal"><span class="u-mono">Architecture</span><h3>Recurrent state replacing distant attention</h3><p>When attention was windowed, A010 lost as much quality as the Transformer did.</p></div>
+      <div class="tile reveal"><span class="u-mono">Analysis</span><h3>Mixer substitution reaching 0.50 here</h3><p>Replace attention with a free recurrent core. The per token ratio still stays at 0.55 to 0.72. {{tagEstimated}}</p></div>
+      <div class="tile reveal"><span class="u-mono">Method</span><h3>Ranking architectures at 250 updates</h3><p>Rank correlation with final results was 0.09. Discovery runs now last 750 updates.</p></div>
+      <div class="tile reveal"><span class="u-mono">Method</span><h3>Uncontrolled timing</h3><p>Sessions with unpinned cores or background load are quarantined and remeasured.</p></div>
+      <div class="tile reveal"><span class="u-mono">Method</span><h3>Endpoint cost for capability</h3><p>Charging a plateaued baseline its full budget inflated CIR's advantage. It was corrected.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section is-main" aria-labelledby="capability-title">
+  <div class="u-container">
+    <div class="grid u-mb-8">
+      <div class="col-7">
+        <span class="section_eyebrow u-mono">09 · Capability evaluation</span>
+        <h2 class="u-display-l reveal" id="capability-title">Lower BPB is not general intelligence.</h2>
+      </div>
+      <div class="col-5">
+        <p class="u-paragraph-s hero_side reveal">BPB measures text compression. Models with equal BPB can differ in recall, copying and state tracking. At 4M parameters, many capabilities cannot be measured at all.</p>
+      </div>
+    </div>
+    <div class="reveal">{{cirCapabilities}}</div>
+    <p class="u-paragraph-xs u-faded u-mt-6 u-max-60">Status compares A010 with the strongest relevant Transformer at the same scale. Probes are exploratory unless stated otherwise.</p>
+  </div>
+</section>
+
+<section class="section is-light is-main" aria-labelledby="scaling-title">
+  <div class="u-container">
+    <div class="grid u-mb-8">
+      <div class="col-7">
+        <span class="section_eyebrow u-mono">10 · Scaling status</span>
+        <h2 class="u-display-l reveal" id="scaling-title">Small scale results do not prove large scale behavior.</h2>
+      </div>
+      <div class="col-5">
+        <p class="u-paragraph-s hero_side reveal">Three widths have been tested, all below 10M parameters. Evidence, extrapolation and hypothesis are kept apart.</p>
+      </div>
+    </div>
     <div class="tiles">
       <div class="tile reveal">
-        <span class="u-mono">Baseline</span>
-        <h3>Why the Transformer</h3>
-        <p>It is the strongest, most studied and most optimized design available. Beating a weak baseline proves little.</p>
+        <span class="u-mono">Evidence {{tagEstimated}}</span>
+        <h3>What was observed</h3>
+        <p>Against the local global Transformer, the ratio rose from 0.64 to 0.72 at width 448. At a fixed tokens per parameter ratio, the BPB margin grew from 2.8M to 4M. Against B1A, ρ_u stayed at 0.70 and 0.71 across widths.</p>
       </div>
       <div class="tile reveal">
-        <span class="u-mono">Metric</span>
-        <h3>Why BPB alone is insufficient</h3>
-        <p>Bits per byte measures compression of text. Two models with equal BPB can differ in recall, reasoning and long context use.</p>
+        <span class="u-mono">Confound</span>
+        <h3>Tokens per parameter</h3>
+        <p>The width 448 run kept tokens fixed. Tokens per parameter fell from 12.3 to 6.4. That alone could explain the weaker ratio.</p>
       </div>
       <div class="tile reveal">
-        <span class="u-mono">Capability</span>
-        <h3>Capability is multidimensional</h3>
-        <p>Candidates are compared across several capability dimensions. A gain on one dimension cannot hide a loss on another.</p>
+        <span class="u-mono">Extrapolation {{tagProjected}}</span>
+        <h3>Where attention cost goes</h3>
+        <p>Attention's share of cost falls roughly with width. At width 4,096 and context 4,096, it is about 8%. Replacing attention then saves little.</p>
       </div>
       <div class="tile reveal">
-        <span class="u-mono">Hardware</span>
-        <h3>Hardware aware evaluation</h3>
-        <p>Cost is measured on real CPUs and GPUs. A design that saves FLOPs but stalls on memory can cost more.</p>
+        <span class="u-mono">Hypothesis</span>
+        <h3>Where an asymmetry may remain</h3>
+        <p>Recurrence keeps constant cost per token as context grows. That may matter only far beyond our tested context.</p>
       </div>
       <div class="tile reveal">
-        <span class="u-mono">Rigor</span>
-        <h3>Matched and fair comparisons</h3>
-        <p>Baselines get the same tuning effort and budget. Results are checked across seeds and scales before any claim.</p>
-      </div>
-      <div class="tile reveal">
-        <span class="u-mono">Honesty</span>
-        <h3>Measured, estimated, projected</h3>
-        <p>These three kinds of numbers stay clearly labeled. Unexpected failures are recorded, not hidden.</p>
+        <span class="u-mono">Unknown</span>
+        <h3>Not yet tested</h3>
+        <p>Anything above about 7M parameters. Training beyond 1,500 updates. GPUs and other CPUs. Longer contexts with real long range needs.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section is-flush-top" aria-labelledby="areas-title">
+<section class="section is-main" aria-labelledby="threats-title">
   <div class="u-container">
     <div class="grid">
       <div class="col-4">
-        <span class="section_eyebrow u-mono">04 · Areas investigated</span>
-        <h2 class="u-display-m u-max-20 reveal" id="areas-title">Where CIR looks for cost.</h2>
+        <span class="section_eyebrow u-mono">11 · Current threats to the claim</span>
+        <h2 class="u-display-m u-max-20 reveal" id="threats-title">Why the remaining advantage could disappear.</h2>
+        <p class="u-paragraph-xs u-faded u-mt-6 u-max-40 reveal">Some of these threats have already materialized. They are listed in order of current weight.</p>
       </div>
       <div class="col-8">
-        <ul class="rows reveal" aria-label="CIR investigation areas">
-          <li><div class="row"><h3><span class="row_index">01</span>Neural architecture</h3><span class="row_tag">Model structure</span></div></li>
-          <li><div class="row"><h3><span class="row_index">02</span>Recurrent and state mechanisms</h3><span class="row_tag">Model structure</span></div></li>
-          <li><div class="row"><h3><span class="row_index">03</span>Attention</h3><span class="row_tag">Model structure</span></div></li>
-          <li><div class="row"><h3><span class="row_index">04</span>Memory</h3><span class="row_tag">Model structure</span></div></li>
-          <li><div class="row"><h3><span class="row_index">05</span>Learning efficiency</h3><span class="row_tag">Learning</span></div></li>
-          <li><div class="row"><h3><span class="row_index">06</span>Optimizer interaction</h3><span class="row_tag">Learning</span></div></li>
-          <li><div class="row"><h3><span class="row_index">07</span>Parameter activity</h3><span class="row_tag">Learning</span></div></li>
-          <li><div class="row"><h3><span class="row_index">08</span>Data efficiency</h3><span class="row_tag">Learning</span></div></li>
-          <li><div class="row"><h3><span class="row_index">09</span>CPU and GPU hardware behavior</h3><span class="row_tag">Systems</span></div></li>
-          <li><div class="row"><h3><span class="row_index">10</span>Memory traffic</h3><span class="row_tag">Systems</span></div></li>
-          <li><div class="row"><h3><span class="row_index">11</span>Training systems</h3><span class="row_tag">Systems</span></div></li>
-          <li><div class="row"><h3><span class="row_index">12</span>Capability evaluation</h3><span class="row_tag">Evaluation</span></div></li>
+        <ul class="rows reveal" aria-label="Threats to the CIR claim">
+          <li><div class="row"><div><h3><span class="row_index">01</span>Stronger Transformer baselines</h3><p class="row_body">B1A already removed the BPB advantage. Cheaper Transformers may still exist.</p></div><span class="row_tag">Materialized</span></div></li>
+          <li><div class="row"><div><h3><span class="row_index">02</span>Generic modules help Transformers too</h3><p class="row_body">Engram and n gram heads gave Transformers equal or larger gains.</p></div><span class="row_tag">Materialized</span></div></li>
+          <li><div class="row"><div><h3><span class="row_index">03</span>An analytic cost bound</h3><p class="row_body">At this context length, swapping the mixer cannot reach the 0.50 gate.</p></div><span class="row_tag">Estimated</span></div></li>
+          <li><div class="row"><div><h3><span class="row_index">04</span>Scaling degradation</h3><p class="row_body">Attention's share of cost shrinks with width. Mixer savings shrink with it.</p></div><span class="row_tag">Projected</span></div></li>
+          <li><div class="row"><div><h3><span class="row_index">05</span>A marginal capability edge</h3><p class="row_body">The recall advantage against B1A is small and rests on one seed.</p></div><span class="row_tag">Open</span></div></li>
+          <li><div class="row"><div><h3><span class="row_index">06</span>Hardware specificity</h3><p class="row_body">One laptop CPU. Thin recurrent mixers are limited by call overhead there, not arithmetic.</p></div><span class="row_tag">Open</span></div></li>
+          <li><div class="row"><div><h3><span class="row_index">07</span>Optimizer and tuning sensitivity</h3><p class="row_body">Muon already reversed one result. Learning rate choices can still shift ratios.</p></div><span class="row_tag">Open</span></div></li>
+          <li><div class="row"><div><h3><span class="row_index">08</span>Prior art</h3><p class="row_body">Recurrent state tracking with negative eigenvalues appears in DeltaNet and RWKV 7 work.</p></div><span class="row_tag">Acknowledged</span></div></li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section is-main" aria-labelledby="claims-title">
+<section class="section is-light is-main" aria-labelledby="active-title">
+  <div class="u-container">
+    <div class="grid u-mb-8">
+      <div class="col-7">
+        <span class="section_eyebrow u-mono">12 · Active experiments</span>
+        <h2 class="u-display-l reveal" id="active-title">What is being tested now.</h2>
+      </div>
+      <div class="col-5">
+        <p class="u-paragraph-s hero_side reveal">Criteria for every confirmation run are frozen before results exist. Completion times are not given, since they depend on shared hardware.</p>
+      </div>
+    </div>
+    <div class="reveal">{{cirExperiments}}</div>
+    <div class="panel is-ivory u-mt-8 reveal">
+      <h3 class="u-display-xs u-mb-4">What would falsify the current direction</h3>
+      <ul class="rows is-single" aria-label="Falsification conditions">
+        <li><div class="row"><h3>R81 fails both frozen criteria. The delta hybrid family is then closed at this context length.</h3></div></li>
+        <li><div class="row"><h3>H032 shows no state tracking gain, or the gain costs language quality.</h3></div></li>
+        <li><div class="row"><h3>Any surviving edge vanishes on a second seed or a larger width.</h3></div></li>
+        <li><div class="row"><h3>Windowed Transformers with exact lookup match long context capability more cheaply.</h3></div></li>
+      </ul>
+      <p class="u-paragraph-xs u-faded u-mt-6 u-max-60">If R81 fails, a first principles reset is already drafted. B1A stays the mandatory comparator.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section is-main" aria-labelledby="timeline-title">
+  <div class="u-container">
+    <div class="grid">
+      <div class="col-4">
+        <span class="section_eyebrow u-mono">13 · Key turning points</span>
+        <h2 class="u-display-m u-max-20 reveal" id="timeline-title">How the research changed when evidence changed.</h2>
+        <p class="u-paragraph-xs u-faded u-mt-6 u-max-40 reveal">All dates are 2026.</p>
+      </div>
+      <div class="col-8 reveal">
+        {{cirTimeline}}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section is-light is-main" aria-labelledby="method-title">
+  <div class="u-container">
+    <span class="section_eyebrow u-mono">14 · Methodology</span>
+    <h2 class="u-display-l u-max-30 u-mb-8 reveal" id="method-title">How CIR evaluates a candidate.</h2>
+    <div class="tiles">
+      <div class="tile reveal"><span class="u-mono">Hypotheses</span><h3>Hypothesis led, with credences</h3><p>Each experiment tests a named hypothesis. Beliefs are updated before and after.</p></div>
+      <div class="tile reveal"><span class="u-mono">Criteria</span><h3>Frozen success and failure criteria</h3><p>Pass conditions and predictions are written down before any result is seen.</p></div>
+      <div class="tile reveal"><span class="u-mono">Funnel</span><h3>Discovery separate from confirmation</h3><p>Discovery runs are short. Confirmation needs a full run, a second seed and a baseline attack.</p></div>
+      <div class="tile reveal"><span class="u-mono">Baselines</span><h3>Adversarial baseline strengthening</h3><p>A dedicated lane tries to make the Transformer beat CIR.</p></div>
+      <div class="tile reveal"><span class="u-mono">Mechanism</span><h3>Mechanism before optimization</h3><p>Probes explain why a result happens before it is built upon.</p></div>
+      <div class="tile reveal"><span class="u-mono">Fidelity</span><h3>Multi fidelity experiments</h3><p>Analysis and evaluation only probes come first. Full training runs come last.</p></div>
+      <div class="tile reveal"><span class="u-mono">Cost</span><h3>Canonical cost accounting</h3><p>Fixed cores, calibration and validity checks. Invalid sessions are remeasured.</p></div>
+      <div class="tile reveal"><span class="u-mono">Capability</span><h3>Capability probes beyond BPB</h3><p>Copying, recall, bracket closing and position use are checked on the same checkpoints.</p></div>
+      <div class="tile reveal"><span class="u-mono">Search</span><h3>First principles architecture search</h3><p>Candidates are derived from bounds and primitives before literature is consulted.</p></div>
+      <div class="tile reveal"><span class="u-mono">Prior art</span><h3>Adversarial prior art review</h3><p>Every idea is searched against published work. Rediscoveries are labeled as such.</p></div>
+      <div class="tile reveal"><span class="u-mono">Red team</span><h3>Periodic knowledge red teaming</h3><p>Accepted conclusions are attacked on a schedule. Errors found are logged and corrected.</p></div>
+      <div class="tile reveal"><span class="u-mono">Status</span><h3>Epistemic labels</h3><p>Knowledge carries a status, such as supported, contested, superseded or quarantined.</p></div>
+    </div>
+    <div class="btn_group u-mt-8 reveal">
+      <a class="btn is-secondary" href="/evidence"><span>Our evidence standard</span><span class="btn_icon" aria-hidden="true">&rarr;</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="section is-main" aria-labelledby="limits-title">
   <div class="u-container">
     <div class="panel">
       <div class="grid">
         <div class="col-5">
-          <span class="section_eyebrow u-mono">05 · Scope of claims</span>
-          <h2 class="u-display-m u-max-20 reveal" id="claims-title">What CIR does not claim.</h2>
-          <p class="u-paragraph-xs u-faded u-mt-6 u-max-40 reveal">CIR is part of DotrixAI, not the whole lab. Other programs may follow.</p>
+          <span class="section_eyebrow u-mono">15 · Limitations</span>
+          <h2 class="u-display-m u-max-20 reveal" id="limits-title">What these results cannot tell you.</h2>
         </div>
         <div class="col-7">
-          <ul class="rows reveal" aria-label="Claims CIR does not make">
-            <li><div class="row"><h3>It has not replaced the Transformer.</h3></div></li>
-            <li><div class="row"><h3>It is not proven at frontier scale.</h3></div></li>
-            <li><div class="row"><h3>It claims no fixed cost multiple over Transformers.</h3></div></li>
-            <li><div class="row"><h3>It claims no proven reasoning advantage.</h3></div></li>
-            <li><div class="row"><h3>It makes no claim of outside adoption.</h3></div></li>
-            <li><div class="row"><h3>Today's experimental designs are not the final architecture.</h3></div></li>
+          <ul class="rows is-single reveal" aria-label="Limitations of current CIR evidence">
+            <li><div class="row"><h3>Model scale is small: about 4M parameters, at most about 7M.</h3></div></li>
+            <li><div class="row"><h3>Hardware scope is one laptop CPU. No GPU results exist.</h3></div></li>
+            <li><div class="row"><h3>Training is short: at most 49M tokens, below compute optimal budgets.</h3></div></li>
+            <li><div class="row"><h3>Quality is mostly BPB on a small English and Indonesian corpus.</h3></div></li>
+            <li><div class="row"><h3>Grammar, binding, reasoning and generation are not measurable at this scale.</h3></div></li>
+            <li><div class="row"><h3>Most results use one seed. Only the main A010 comparisons use two.</h3></div></li>
+            <li><div class="row"><h3>Mechanisms overlap with prior art, including DeltaNet, RWKV 7 and Engram.</h3></div></li>
+            <li><div class="row"><h3>Results can change as baselines improve. This has already happened several times.</h3></div></li>
+            <li><div class="row"><h3>CPU cost estimates may not transfer to GPU scale training.</h3></div></li>
           </ul>
         </div>
       </div>
@@ -158,16 +436,36 @@
   </div>
 </section>
 
-<section class="section is-flush-top" aria-labelledby="cir-next-title">
+<section class="section is-flush-top" aria-labelledby="publish-title">
+  <div class="u-container">
+    <div class="grid">
+      <div class="col-4">
+        <span class="section_eyebrow u-mono">16 · Publication and reproducibility</span>
+      </div>
+      <div class="col-8">
+        <h2 class="u-display-m u-max-30 u-mb-6 reveal" id="publish-title">Enough to evaluate major claims independently.</h2>
+        <div class="prose u-paragraph-s u-max-60 reveal">
+          <p>DotrixAI intends to publish methodology, benchmark conditions, limitations and selected reproducibility materials. The aim is that major technical claims can be independently evaluated.</p>
+          <p>This is not a promise of full open source. Some implementation details will remain proprietary.</p>
+          <p>Experiment IDs on this page match our internal ledgers. Published material will use the same IDs.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section is-main" aria-labelledby="cir-next-title">
   <div class="u-container">
     <div class="grid is-end">
       <div class="col-7">
-        <h2 class="u-display-m u-max-30 reveal" id="cir-next-title">Detailed benchmark evidence may be published as the program matures.</h2>
+        <span class="section_eyebrow u-mono">Follow CIR research</span>
+        <h2 class="u-display-l u-max-30 reveal" id="cir-next-title">Research is ongoing.</h2>
+        <p class="u-paragraph-s u-faded u-mt-6 u-max-40 reveal">For research discussion, technical review or collaboration, write to us. Critiques of the evidence above are especially welcome.</p>
       </div>
       <div class="col-5 reveal">
         <div class="btn_group">
-          <a class="btn" href="/evidence"><span>Our evidence standard</span><span class="btn_icon" aria-hidden="true">&rarr;</span></a>
-          <a class="btn is-secondary" href="/research"><span>All research</span></a>
+          {{contactBlock}}
+          {{xButton}}
         </div>
       </div>
     </div>

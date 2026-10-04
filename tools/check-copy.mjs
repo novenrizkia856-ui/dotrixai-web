@@ -27,7 +27,7 @@ for (const file of readdirSync(dist).filter((f) => f.endsWith(".html"))) {
   for (const m of html.matchAll(/\s(?:aria-label|alt|title|placeholder)="([^"]*)"/g)) add(`${file} attribute`, m[1]);
   const body = html.replace(/<head>[\s\S]*?<\/head>/, "").replace(/<script[\s\S]*?<\/script>/g, "")
     .replace(/<style[\s\S]*?<\/style>/g, "").replace(/<svg[\s\S]*?<\/svg>/g, "").replace(/<code[\s\S]*?<\/code>/g, "");
-  const text = body.replace(/<(\/?)(p|h[1-6]|li|a|button|div|section|header|footer|nav|main|span class="(?:u-mono|section_eyebrow|statement_label|row_tag|stack_note|chain_step)[^"]*")\b[^>]*>/g, "\n")
+  const text = body.replace(/<(\/?)(p|h[1-6]|li|a|button|div|section|header|footer|nav|main|t[dhr]|figcaption|caption|span class="(?:u-mono|section_eyebrow|statement_label|row_tag|stack_note|chain_step|tag)[^"]*")\b[^>]*>/g, "\n")
     .replace(/<br\s*\/?>/g, "\n").replace(/<[^>]+>/g, " ");
   for (const line of text.split("\n")) add(`${file} text`, line);
 }

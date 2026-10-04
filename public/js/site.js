@@ -166,4 +166,44 @@
     document.addEventListener("visibilitychange", () => { visible = !document.hidden && visible; if (!document.hidden) start(); });
     resize();
   });
+
+  /* ---------- chart tooltips (values are also in the table below each chart) ---------- */
+  document.querySelectorAll("[data-chart]").forEach((chart) => {
+    const plot = chart.querySelector(".chart_plot");
+    const tip = chart.querySelector(".chart_tip");
+    if (!plot || !tip) return;
+    const show = (col) => {
+      const [title, ...rows] = col.dataset.tip.split("|");
+      tip.replaceChildren();
+      const head = document.createElement("div");
+      head.className = "chart_tip_title";
+      head.textContent = title;
+      tip.append(head);
+      rows.forEach((r) => {
+        const i = r.lastIndexOf(": ");
+        const row = document.createElement("div");
+        row.className = "chart_tip_row";
+        const name = document.createElement("span");
+        name.textContent = r.slice(0, i);
+        const value = document.createElement("b");
+        value.textContent = r.slice(i + 2);
+        row.append(name, value);
+        tip.append(row);
+      });
+      tip.hidden = false;
+      const box = plot.getBoundingClientRect();
+      const c = col.querySelector(".chart_cross").getBoundingClientRect();
+      const x = c.left - box.left;
+      const left = x + 16 + tip.offsetWidth > box.width ? x - 16 - tip.offsetWidth : x + 16;
+      tip.style.left = Math.max(0, left) + "px";
+      tip.style.top = "8px";
+    };
+    const hide = () => { tip.hidden = true; };
+    chart.querySelectorAll(".chart_col").forEach((col) => {
+      col.addEventListener("pointerenter", () => show(col));
+      col.addEventListener("focus", () => show(col));
+      col.addEventListener("pointerleave", hide);
+      col.addEventListener("blur", hide);
+    });
+  });
 })();

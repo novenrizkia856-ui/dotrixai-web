@@ -26,6 +26,8 @@ npm run brand          # regenerate logos, favicons and og.png from work/brand-s
 ```
 src/
   site.config.mjs     site origin, domain, contact email (empty = "coming soon" note)
+  data/cir.mjs        CIR research state for /cir: latest update, gates, evidence, cost curve,
+                      capabilities, experiments, timeline. Edit here as CIR evolves, then build.
   partials/           layout.html (head, meta, OG), nav.html, footer.html
   pages/              one file per route; the copy lives here
     index.html        /             home
@@ -47,6 +49,10 @@ work/
 ```
 
 Each page starts with a `<!-- page { ... } -->` header holding its title, description and nav key.
+
+## Updating the CIR page
+
+The parts of `/cir` that change with the research live in `src/data/cir.mjs` and render into `{{cir*}}` tokens. Take every number from the current files in `D:/CIR/research` and keep its ledger ID in `src`. Change a result's status rather than deleting it, so superseded results stay visible. The narrative sections (current claim, threats, limitations) are in `src/pages/cir.html` and need a read through on each update.
 
 ## Copy rules
 

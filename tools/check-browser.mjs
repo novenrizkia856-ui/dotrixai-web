@@ -4,7 +4,7 @@
 // overflow and copy rule breaks for every page at desktop, tablet and phone
 // widths. Screenshots land in work/shots/ (git ignored).
 //
-// Usage: node tools/check-browser.mjs [page ...] [--shots] [--full] [--wait ms]
+// Usage: node tools/check-browser.mjs [page ...] [--shots] [--full] [--from px] [--wait ms]
 //          [--wheel 800,2400] scroll by wheel delta, screenshot after each
 //          [--menu]           phone only: open the mobile menu and screenshot
 //          [--eval "expr"]    extra expression, result printed per page
@@ -21,11 +21,12 @@ import { tmpdir } from "node:os";
 
 const args = process.argv.slice(2);
 const opt = (name) => { const i = args.indexOf(name); return i >= 0 ? args[i + 1] : null; };
-const VALUED = new Set(["--eval", "--wait", "--wheel", "--pre", "--only", "--root"]);
+const VALUED = new Set(["--eval", "--wait", "--wheel", "--pre", "--only", "--root", "--from"]);
 const repo = join(dirname(fileURLToPath(import.meta.url)), "..");
 const root = opt("--root") ? normalize(opt("--root")) : join(repo, "dist");
 const shots = args.includes("--shots");
 const full = args.includes("--full"); // whole page, for normally scrolling pages
+const fromY = Number(opt("--from") || 0); // with --full: start the 12,000px capture this far down
 const extraEval = opt("--eval");
 const settle = opt("--wait") ? Number(opt("--wait")) : 2500;
 const menu = args.includes("--menu");
@@ -103,7 +104,7 @@ async function shoot(sessionId, file, whole) {
   let o = { format: "png" };
   if (whole) {
     const m = await send("Page.getLayoutMetrics", {}, sessionId);
-    o = { format: "png", captureBeyondViewport: true, clip: { x: 0, y: 0, width: m.cssContentSize.width, height: Math.min(m.cssContentSize.height, 12000), scale: 1 } };
+    o = { format: "png", captureBeyondViewport: true, clip: { x: 0, y: fromY, width: m.cssContentSize.width, height: Math.min(m.cssContentSize.height - fromY, 12000), scale: 1 } };
   }
   const s = await send("Page.captureScreenshot", o, sessionId);
   await writeFile(file, Buffer.from(s.data, "base64"));
