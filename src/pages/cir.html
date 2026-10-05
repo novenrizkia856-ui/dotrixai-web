@@ -18,35 +18,33 @@
   </div>
 </header>
 
-<section class="section is-tight-top" aria-label="Research status disclaimer">
+<section class="section is-tight-top" aria-label="Program status at a glance">
   <div class="u-container">
-    <div class="note is-strong reveal">
-      <span class="u-mono">Read first</span>
-      <p>CIR is an ongoing research program. Results shown below are provisional unless explicitly marked as reproduced or validated. Current candidates may be superseded as stronger baselines and new evidence are introduced.</p>
-    </div>
+    <div class="reveal">{{cirGlance}}</div>
+    <p class="disclaimer reveal"><span class="u-mono">Read first</span> CIR is an ongoing research program. Results shown below are provisional unless explicitly marked as reproduced or validated. Current candidates may be superseded as stronger baselines and new evidence are introduced.</p>
   </div>
 </section>
 
 <nav class="section is-flush-top" aria-label="On this page">
   <div class="u-container">
-    <ul class="toc" role="list">
-      <li><a href="#latest-title">Latest update</a></li>
-      <li><a href="#objective-title">Objective</a></li>
-      <li><a href="#gates-title">Gates</a></li>
-      <li><a href="#state-title">Current state</a></li>
-      <li><a href="#claim-title">Current claim</a></li>
-      <li><a href="#evidence-title">Evidence</a></li>
-      <li><a href="#cost-title">Cost curve</a></li>
-      <li><a href="#baseline-title">Baselines</a></li>
-      <li><a href="#ruled-title">Ruled out</a></li>
-      <li><a href="#capability-title">Capability</a></li>
-      <li><a href="#scaling-title">Scaling</a></li>
-      <li><a href="#threats-title">Threats</a></li>
-      <li><a href="#active-title">Active work</a></li>
-      <li><a href="#timeline-title">Timeline</a></li>
-      <li><a href="#method-title">Method</a></li>
-      <li><a href="#limits-title">Limitations</a></li>
-    </ul>
+    <ol class="toc" role="list">
+      <li><a href="#latest-title"><span class="toc_num">Now</span>Latest update</a></li>
+      <li><a href="#objective-title"><span class="toc_num">01</span>Objective</a></li>
+      <li><a href="#gates-title"><span class="toc_num">02</span>Gates</a></li>
+      <li><a href="#state-title"><span class="toc_num">03</span>Current state</a></li>
+      <li><a href="#claim-title"><span class="toc_num">04</span>Current claim</a></li>
+      <li><a href="#evidence-title"><span class="toc_num">05</span>Evidence</a></li>
+      <li><a href="#cost-title"><span class="toc_num">06</span>Cost curve</a></li>
+      <li><a href="#baseline-title"><span class="toc_num">07</span>Baselines</a></li>
+      <li><a href="#ruled-title"><span class="toc_num">08</span>Ruled out</a></li>
+      <li><a href="#capability-title"><span class="toc_num">09</span>Capability</a></li>
+      <li><a href="#scaling-title"><span class="toc_num">10</span>Scaling</a></li>
+      <li><a href="#threats-title"><span class="toc_num">11</span>Threats</a></li>
+      <li><a href="#active-title"><span class="toc_num">12</span>Active work</a></li>
+      <li><a href="#timeline-title"><span class="toc_num">13</span>Timeline</a></li>
+      <li><a href="#method-title"><span class="toc_num">14</span>Method</a></li>
+      <li><a href="#limits-title"><span class="toc_num">15</span>Limitations</a></li>
+    </ol>
   </div>
 </nav>
 
@@ -65,7 +63,7 @@
   </div>
 </section>
 
-<section class="section is-main" aria-labelledby="objective-title">
+<section class="section" aria-labelledby="objective-title">
   <div class="u-container">
     <div class="grid">
       <div class="col-4">
@@ -99,17 +97,17 @@
             </ul>
           </div>
         </div>
-        <ul class="rows is-single u-mt-8 reveal" aria-label="Number labels used on this page">
-          <li><div class="row"><div><h3>{{tagMeasured}}</h3><p class="row_body">Read directly from an instrument, such as BPB or time per token.</p></div></div></li>
-          <li><div class="row"><div><h3>{{tagEstimated}}</h3><p class="row_body">Computed from measurements, such as a cost ratio at matched Q.</p></div></div></li>
-          <li><div class="row"><div><h3>{{tagProjected}}</h3><p class="row_body">Extrapolated beyond what was run. Never mixed with the other two.</p></div></div></li>
-        </ul>
+        <dl class="kinds u-mt-8 reveal" aria-label="Number labels used on this page">
+          <div><dt>{{tagMeasured}}</dt><dd>Read directly from an instrument, such as BPB or time per update.</dd></div>
+          <div><dt>{{tagEstimated}}</dt><dd>Computed from measurements, such as a cost ratio at matched Q.</dd></div>
+          <div><dt>{{tagProjected}}</dt><dd>Extrapolated beyond what was run. Never mixed with the other two.</dd></div>
+        </dl>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section is-light is-main" aria-labelledby="gates-title">
+<section class="section is-light" aria-labelledby="gates-title">
   <div class="u-container">
     <div class="grid u-mb-8">
       <div class="col-7">
@@ -124,7 +122,7 @@
   </div>
 </section>
 
-<section class="section is-main" aria-labelledby="state-title">
+<section class="section" aria-labelledby="state-title">
   <div class="u-container">
     <div class="grid">
       <div class="col-4">
@@ -172,7 +170,7 @@
   </div>
 </section>
 
-<section class="section is-main" aria-labelledby="evidence-title">
+<section class="section" aria-labelledby="evidence-title">
   <div class="u-container">
     <div class="grid u-mb-8">
       <div class="col-7">
@@ -188,7 +186,7 @@
   </div>
 </section>
 
-<section class="section is-light is-main" aria-labelledby="cost-title">
+<section class="section is-light" aria-labelledby="cost-title">
   <div class="u-container">
     <div class="grid u-mb-8">
       <div class="col-7">
@@ -216,7 +214,7 @@
   </div>
 </section>
 
-<section class="section is-main" aria-labelledby="baseline-title">
+<section class="section" aria-labelledby="baseline-title">
   <div class="u-container">
     <div class="grid">
       <div class="col-4">
@@ -242,7 +240,7 @@
   </div>
 </section>
 
-<section class="section is-light is-main" aria-labelledby="ruled-title">
+<section class="section is-light" aria-labelledby="ruled-title">
   <div class="u-container">
     <div class="grid u-mb-8">
       <div class="col-7">
@@ -270,7 +268,7 @@
   </div>
 </section>
 
-<section class="section is-main" aria-labelledby="capability-title">
+<section class="section" aria-labelledby="capability-title">
   <div class="u-container">
     <div class="grid u-mb-8">
       <div class="col-7">
@@ -286,7 +284,7 @@
   </div>
 </section>
 
-<section class="section is-light is-main" aria-labelledby="scaling-title">
+<section class="section is-light" aria-labelledby="scaling-title">
   <div class="u-container">
     <div class="grid u-mb-8">
       <div class="col-7">
@@ -327,7 +325,7 @@
   </div>
 </section>
 
-<section class="section is-main" aria-labelledby="threats-title">
+<section class="section" aria-labelledby="threats-title">
   <div class="u-container">
     <div class="grid">
       <div class="col-4">
@@ -351,7 +349,7 @@
   </div>
 </section>
 
-<section class="section is-light is-main" aria-labelledby="active-title">
+<section class="section is-light" aria-labelledby="active-title">
   <div class="u-container">
     <div class="grid u-mb-8">
       <div class="col-7">
@@ -376,7 +374,7 @@
   </div>
 </section>
 
-<section class="section is-main" aria-labelledby="timeline-title">
+<section class="section" aria-labelledby="timeline-title">
   <div class="u-container">
     <div class="grid">
       <div class="col-4">
@@ -391,7 +389,7 @@
   </div>
 </section>
 
-<section class="section is-light is-main" aria-labelledby="method-title">
+<section class="section is-light" aria-labelledby="method-title">
   <div class="u-container">
     <span class="section_eyebrow u-mono">14 · Methodology</span>
     <h2 class="u-display-l u-max-30 u-mb-8 reveal" id="method-title">How CIR evaluates a candidate.</h2>
@@ -415,7 +413,7 @@
   </div>
 </section>
 
-<section class="section is-main" aria-labelledby="limits-title">
+<section class="section" aria-labelledby="limits-title">
   <div class="u-container">
     <div class="panel">
       <div class="grid">
@@ -463,7 +461,7 @@
   </div>
 </section>
 
-<section class="section is-main" aria-labelledby="cir-next-title">
+<section class="section" aria-labelledby="cir-next-title">
   <div class="u-container">
     <div class="grid is-end">
       <div class="col-7">

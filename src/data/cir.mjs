@@ -258,18 +258,40 @@ export const evidence = [
   }
 ];
 
-const renderEvidence = () => table({
-  label: "CIR evidence table",
-  cols: [
-    { key: "finding", title: "Finding" },
-    { key: "statusHtml", title: "Status" },
-    { key: "evidence", title: "Evidence" },
-    { key: "meaning", title: "Interpretation" },
-    { key: "limit", title: "Limitation" }
-  ],
-  rows: evidence.map((e) => ({ ...e, statusHtml: tags(e.status) })),
-  className: "is-evidence"
-});
+// Evidence is grouped by where it stands, so negative results read as their own block.
+const EVIDENCE_GROUPS = [
+  { title: "Current evidence", test: (st) => !st.some((k) => ["falsified", "superseded", "quarantined", "evaluating"].includes(k)) },
+  { title: "Falsified or closed", test: (st) => st.includes("falsified") },
+  { title: "Superseded or quarantined", test: (st) => st.some((k) => ["superseded", "quarantined"].includes(k)) },
+  { title: "Under evaluation", test: (st) => st.includes("evaluating") }
+];
+
+const renderEvidence = () => {
+  const row = (e) => `<tr>
+<th scope="row" data-label="Finding"><span class="ev_title">${e.finding}</span><span class="ev_tags">${tags(e.status)}</span><span class="ev_src">${e.src}</span></th>
+<td data-label="Evidence"><div class="dcell">${e.evidence}</div></td>
+<td data-label="Interpretation"><div class="dcell">${e.meaning}<p class="ev_limit"><span class="u-mono">Limitation</span> ${e.limit}</p></div></td>
+</tr>`;
+  const groups = EVIDENCE_GROUPS.map((g) => ({ ...g, rows: evidence.filter((e) => g.test(e.status)) })).filter((g) => g.rows.length);
+  return `<div class="dtable_wrap"><table class="dtable is-stack is-evidence" aria-label="CIR evidence table">
+<thead><tr><th scope="col">Finding</th><th scope="col">Evidence</th><th scope="col">Interpretation and limitation</th></tr></thead>
+${groups.map((g) => `<tbody><tr class="dtable_group"><th scope="colgroup" colspan="3">${g.title} <span class="dtable_count">${g.rows.length}</span></th></tr>
+${g.rows.map(row).join("\n")}</tbody>`).join("\n")}
+</table></div>`;
+};
+
+// ---------- at a glance ----------
+
+export const glance = [
+  { label: "Program objective", value: "Not reached", note: "No cost advantage over the cheapest fair Transformer yet." },
+  { label: "Best CIR result vs B1A", value: "0.95 to 0.99×", note: "A025 breaks even. The signal gate is 0.75." },
+  { label: "Strongest baseline", value: "B1A", note: "A Transformer with one global attention layer." },
+  { label: "Active now", value: "R88 and R89", note: "State tracking signal and formal language warm up." }
+];
+
+const renderGlance = () => `<dl class="glance">
+${glance.map((g) => `<div class="glance_item"><dt class="u-mono">${g.label}</dt><dd class="glance_value">${g.value}</dd><dd class="glance_note">${g.note}</dd></div>`).join("\n")}
+</dl>`;
 
 // ---------- cost curve (one valid cost session, seed 11; I240) ----------
 
@@ -447,6 +469,7 @@ export const tokens = () => ({
   cirLatest: renderLatest(),
   cirGates: renderGates(),
   cirEvidence: renderEvidence(),
+  cirGlance: renderGlance(),
   cirCurve: renderCurve(),
   cirCapabilities: renderCapabilities(),
   cirExperiments: renderExperiments(),
