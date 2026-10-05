@@ -141,10 +141,10 @@
           <li><span class="u-mono">Token budget</span><p>1,500 updates, about 49M tokens. English and Indonesian text.</p></li>
           <li><span class="u-mono">Hardware</span><p>One commodity laptop CPU, Intel Core i5 13420H, two physical cores. No GPU yet.</p></li>
           <li><span class="u-mono">Seeds</span><p>Two seeds for the main A010 comparisons. Most other results use one seed.</p></li>
-          <li><span class="u-mono">Cost to Q against B1A</span><p>BPB 1.23 to 1.27×. Associative recall 0.74 to 1.0×. {{tagEstimated}}</p></li>
+          <li><span class="u-mono">Cost to Q against B1A</span><p>A010: BPB 1.23 to 1.27×. A025, the cheapest hybrid: 0.949 to 0.985×. {{tagEstimated}}</p></li>
           <li><span class="u-mono">Cost to Q, earlier baselines</span><p>0.59 to 0.64× in BPB, two seeds. {{tagEstimated}}</p></li>
-          <li><span class="u-mono">Capability evidence</span><p>BPB, copying, associative recall and bracket closing. Grammar and reasoning are not yet measurable.</p></li>
-          <li><span class="u-mono">Scaling evidence</span><p>Three widths at small scale. Nothing above about 7M parameters.</p></li>
+          <li><span class="u-mono">Capability evidence</span><p>BPB, copying, recall, bracket closing and parity. Grammar and reasoning are not yet measurable.</p></li>
+          <li><span class="u-mono">Scaling evidence</span><p>Three widths at small scale. Nothing above about 7M parameters. Larger runs exceed the current CPU budget.</p></li>
         </ul>
       </div>
     </div>
@@ -163,8 +163,9 @@
         <div class="col-8 prose u-paragraph-m reveal">
           <p>In this small regime, A010 matched a gated local global Transformer's BPB. It needed 0.63 to 0.64× of that model's training cost. This was reproduced across two seeds.</p>
           <p>Our own baseline attack then found a cheaper Transformer, B1A. It matches that baseline at about half the cost per token.</p>
-          <p>Against B1A, A010 needs about 1.23 to 1.27× the cost to reach the same BPB. At equal compute the two tie. A010's recall advantage shrinks to marginal.</p>
-          <p><strong>CIR currently has no robust cost advantage over the cheapest fair Transformer we know.</strong> The program objective has not been reached.</p>
+          <p>Against B1A, A010 needs about 1.23 to 1.27× the cost to reach the same BPB. The cheapest hybrid, A025, only breaks even at 0.985×.</p>
+          <p>One structural asymmetry is real. Recurrence that allows negative eigenvalues learns parity, and B1A never does. Inside a language model it emerged in one of three runs.</p>
+          <p><strong>No CIR organization has a cost advantage over the cheapest fair Transformer we know.</strong> The program objective has not been reached.</p>
         </div>
       </div>
     </div>
@@ -233,7 +234,8 @@
           <li><div class="row"><div><h3>Static n gram heads</h3><p class="row_body">With the same heads on both sides, the recurrent specific edge fell to about zero.</p></div><span class="row_tag">Claim weakened</span></div></li>
           <li><div class="row"><div><h3>One global attention layer (B1A)</h3><p class="row_body">Matched the previous baseline at half the cost per token. BPB claims were lost.</p></div><span class="row_tag">Claim lost</span></div></li>
           <li><div class="row"><div><h3>Wider B1A at equal compute</h3><p class="row_body">BPB tied with A010. Recall was slightly worse.</p></div><span class="row_tag">Tie</span></div></li>
-          <li><div class="row"><div><h3>Windowed B1A</h3><p class="row_body">Estimated to save 10 to 30% per update at this context length. Timing is measured in R82.</p></div><span class="row_tag">Minor threat</span></div></li>
+          <li><div class="row"><div><h3>Windowed B1A</h3><p class="row_body">Measured at only 8.6% cheaper per update, with a small quality loss. B1A stays the frontier.</p></div><span class="row_tag">Minor threat</span></div></li>
+          <li><div class="row"><div><h3>Cheapest hybrid against B1A</h3><p class="row_body">A025 broke even at 0.985×, or 0.949× optimized. Both frozen criteria failed.</p></div><span class="row_tag">Family closed</span></div></li>
         </ul>
       </div>
     </div>
@@ -257,7 +259,10 @@
       <div class="tile reveal"><span class="u-mono">Architecture</span><h3>Static lookup as recall</h3><p>Lookup tables cannot perform in context associative recall. A softmax layer is still needed.</p></div>
       <div class="tile reveal"><span class="u-mono">Architecture</span><h3>Several hybrid variants</h3><p>Local selection, a surprisal cache and a per head hybrid layer each failed their gates.</p></div>
       <div class="tile reveal"><span class="u-mono">Architecture</span><h3>Recurrent state replacing distant attention</h3><p>When attention was windowed, A010 lost as much quality as the Transformer. Its state carried almost no distant copies.</p></div>
-      <div class="tile reveal"><span class="u-mono">Analysis</span><h3>Mixer substitution reaching 0.50 here</h3><p>Replace attention with a free recurrent core. The per token ratio still stays at 0.55 to 0.72. {{tagEstimated}}</p></div>
+      <div class="tile reveal"><span class="u-mono">Analysis</span><h3>Mixer substitution reaching 0.50 here</h3><p>Replace attention with a free recurrent core. Canonical timings still leave a ratio of about 0.77 to 0.87. {{tagEstimated}}</p></div>
+      <div class="tile reveal"><span class="u-mono">Architecture</span><h3>Thin recurrent hybrids against B1A</h3><p>A025 kept part of A010's learning advantage but only broke even on cost.</p></div>
+      <div class="tile reveal"><span class="u-mono">Analysis</span><h3>Training rules specific to recurrence</h3><p>Every training rule lever found also applies to Transformers. None is specific to CIR here.</p></div>
+      <div class="tile reveal"><span class="u-mono">Capability</span><h3>Reliable state tracking from sparse data</h3><p>With 6% parity examples, the capability emerged in only one of three runs.</p></div>
       <div class="tile reveal"><span class="u-mono">Method</span><h3>Ranking architectures at 250 updates</h3><p>Rank correlation with final results was 0.09. Discovery runs now last 750 updates.</p></div>
       <div class="tile reveal"><span class="u-mono">Method</span><h3>Uncontrolled timing</h3><p>Sessions with unpinned cores or background load are quarantined and remeasured.</p></div>
       <div class="tile reveal"><span class="u-mono">Method</span><h3>Endpoint cost for capability</h3><p>Charging a plateaued baseline its full budget inflated CIR's advantage. It was corrected.</p></div>
@@ -316,7 +321,7 @@
       <div class="tile reveal">
         <span class="u-mono">Unknown</span>
         <h3>Not yet tested</h3>
-        <p>Anything above about 7M parameters. Training beyond 1,500 updates. GPUs and other CPUs. Longer contexts with real long range needs.</p>
+        <p>Anything above about 7M parameters. Training beyond 1,500 updates. GPUs and other CPUs. Longer contexts with real long range needs. These exceed the current CPU budget.</p>
       </div>
     </div>
   </div>
@@ -332,11 +337,11 @@
       </div>
       <div class="col-8">
         <ul class="rows reveal" aria-label="Threats to the CIR claim">
-          <li><div class="row"><div><h3><span class="row_index">01</span>Stronger Transformer baselines</h3><p class="row_body">B1A already removed the BPB advantage. A windowed B1A may be 10 to 30% cheaper still.</p></div><span class="row_tag">Materialized</span></div></li>
+          <li><div class="row"><div><h3><span class="row_index">01</span>Stronger Transformer baselines</h3><p class="row_body">B1A already removed the BPB advantage. Cheaper Transformers may still exist.</p></div><span class="row_tag">Materialized</span></div></li>
           <li><div class="row"><div><h3><span class="row_index">02</span>Generic modules help Transformers too</h3><p class="row_body">Engram and n gram heads gave Transformers equal or larger gains.</p></div><span class="row_tag">Materialized</span></div></li>
-          <li><div class="row"><div><h3><span class="row_index">03</span>An analytic cost bound</h3><p class="row_body">At this context length, swapping the mixer cannot reach the 0.50 gate.</p></div><span class="row_tag">Estimated</span></div></li>
+          <li><div class="row"><div><h3><span class="row_index">03</span>An analytic cost bound</h3><p class="row_body">At this context length, swapping the mixer cannot reach the 0.50 gate. Here it cannot reach 0.75 either.</p></div><span class="row_tag">Estimated</span></div></li>
           <li><div class="row"><div><h3><span class="row_index">04</span>Scaling degradation</h3><p class="row_body">Attention's share of cost shrinks with width. Mixer savings shrink with it.</p></div><span class="row_tag">Projected</span></div></li>
-          <li><div class="row"><div><h3><span class="row_index">05</span>A marginal capability edge</h3><p class="row_body">The recall advantage against B1A is small and rests on one seed.</p></div><span class="row_tag">Open</span></div></li>
+          <li><div class="row"><div><h3><span class="row_index">05</span>A narrow, unreliable capability edge</h3><p class="row_body">Parity is the only asymmetry found. It emerged in one of three language model runs.</p></div><span class="row_tag">Open</span></div></li>
           <li><div class="row"><div><h3><span class="row_index">06</span>Hardware specificity</h3><p class="row_body">One laptop CPU. Thin recurrent mixers are limited by call overhead there, not arithmetic.</p></div><span class="row_tag">Open</span></div></li>
           <li><div class="row"><div><h3><span class="row_index">07</span>Optimizer and tuning sensitivity</h3><p class="row_body">Muon already reversed one result. Learning rate choices can still shift ratios.</p></div><span class="row_tag">Open</span></div></li>
           <li><div class="row"><div><h3><span class="row_index">08</span>Prior art</h3><p class="row_body">Recurrent state tracking with negative eigenvalues appears in DeltaNet and RWKV 7 work.</p></div><span class="row_tag">Acknowledged</span></div></li>
@@ -361,12 +366,12 @@
     <div class="panel is-ivory u-mt-8 reveal">
       <h3 class="u-display-xs u-mb-4">What would falsify the current direction</h3>
       <ul class="rows is-single" aria-label="Falsification conditions">
-        <li><div class="row"><h3>R81 fails both frozen criteria. The delta hybrid family is then closed at this context length.</h3></div></li>
-        <li><div class="row"><h3>H032 shows no state tracking gain, or the gain costs language quality.</h3></div></li>
+        <li><div class="row"><h3>R88 fails: parity still does not emerge reliably with a stronger signal.</h3></div></li>
+        <li><div class="row"><h3>R89 shows the same token saving for both organizations, or none at all.</h3></div></li>
         <li><div class="row"><h3>Any surviving edge vanishes on a second seed or a larger width.</h3></div></li>
         <li><div class="row"><h3>Windowed Transformers with exact lookup match long context capability more cheaply.</h3></div></li>
       </ul>
-      <p class="u-paragraph-xs u-faded u-mt-6 u-max-60">If R81 fails, a first principles reset is already drafted. B1A stays the mandatory comparator.</p>
+      <p class="u-paragraph-xs u-faded u-mt-6 u-max-60">R81 failed on 4 October and triggered a first principles reset. B1A stays the mandatory comparator.</p>
     </div>
   </div>
 </section>
@@ -448,6 +453,10 @@
           <p>DotrixAI intends to publish methodology, benchmark conditions, limitations and selected reproducibility materials. The aim is that major technical claims can be independently evaluated.</p>
           <p>This is not a promise of full open source. Some implementation details will remain proprietary.</p>
           <p>Experiment IDs on this page match our internal ledgers. Published material will use the same IDs.</p>
+          <p>The CIR research repository on GitHub holds this evidence as documents and tables. It contains no implementation.</p>
+        </div>
+        <div class="btn_group u-mt-6 reveal">
+          <a class="btn is-secondary" href="https://github.com/dotrixai/cir-research" target="_blank" rel="noopener noreferrer"><span>CIR research repository</span><span class="btn_icon" aria-hidden="true">&rarr;</span></a>
         </div>
       </div>
     </div>

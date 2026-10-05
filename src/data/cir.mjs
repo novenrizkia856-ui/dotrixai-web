@@ -10,7 +10,7 @@
 //     over 15 words. `npm run build` checks both.
 // Each export below renders into a {{token}} used by src/pages/cir.html.
 
-export const asOf = { iso: "2026-10-04", label: "4 October 2026" };
+export const asOf = { iso: "2026-10-05", label: "5 October 2026" };
 
 // ---------- small renderers ----------
 
@@ -58,20 +58,20 @@ ${rows.map((r) => `<tr>${cols.map((c, i) => {
 
 export const latest = [
   {
-    title: "A cheaper Transformer erased the BPB advantage",
-    body: "A Transformer with a single global attention layer matched our previous baseline. It did so at about half the cost per token. Against it, our strongest candidate has no cost advantage in BPB."
+    title: "The cheapest hybrid only breaks even",
+    body: "A025 adds thin recurrent mixers to B1A. It reached B1A's BPB at 0.985× the cost, 0.949× optimized. Both frozen criteria failed, so this hybrid family is closed here."
   },
   {
-    title: "A bias in our recall estimator was found and corrected",
-    body: "The earlier recall cost figure of 0.36 to 0.69 favoured CIR. Corrected, the advantage against the cheapest Transformers is marginal: 0.74 to 1.0."
+    title: "One real asymmetry: state tracking",
+    body: "Recurrence that allows negative eigenvalues learned parity and extrapolated it. Small Transformers, including B1A, never learned it. The mechanism is prior art."
   },
   {
-    title: "R81 interim: the cheaper hybrid keeps little of the margin",
-    body: "At 750 updates, A025 keeps about 15% of A010's BPB margin over B1A. The BPB criterion will likely fail. The formal verdict is still pending."
+    title: "Inside a language model it is unreliable",
+    body: "Trained on text with 6% parity examples, A025n learned parity in one of three runs. B1A never did. This is a narrow capability result, not a cost result."
   },
   {
-    title: "The long context route narrowed further",
-    body: "No softmax model at this scale copies text from beyond about 2,000 tokens. The recurrent state carries almost none either. Only exact n gram lookup copies at any distance."
+    title: "Next: a stronger signal and formal languages",
+    body: "R88 raises the parity share to 15%. R89 tests whether a short formal language warm up saves tokens. It also asks for which organization."
   }
 ];
 
@@ -85,12 +85,12 @@ export const gates = [
   {
     gate: "<code>≤ 0.75×</code>", meaning: "Signal",
     earlier: `${tag("passed")}<p>BPB, two seeds: 0.633 and 0.643 at final Q. ${kind("estimated")}</p>`,
-    frontier: `${tag("not-reached")}<p>BPB 1.23 to 1.27×. Recall 0.74 to 1.0×, one seed. ${kind("estimated")}</p>`
+    frontier: `${tag("not-reached")}<p>Best is A025 at 0.949 to 0.985×, break even. A010 costs 1.23 to 1.27×. ${kind("estimated")}</p>`
   },
   {
     gate: "<code>≤ 0.50×</code>", meaning: "Interesting",
     earlier: `${tag("contested")}<p>0.50 once, one seed, candidate A019. It rises to 0.84 when the Transformer gets the same module. ${kind("estimated")}</p>`,
-    frontier: `${tag("not-reached")}<p>No candidate is close.</p>`
+    frontier: `${tag("not-reached")}<p>Out of reach for mixer substitution at this context length, by an analytic bound.</p>`
   },
   { gate: "<code>≤ 0.20×</code>", meaning: "Industry level", earlier: tag("not-reached"), frontier: tag("not-reached") },
   { gate: "<code>≤ 0.10×</code>", meaning: "Breakthrough level", earlier: tag("not-reached"), frontier: tag("not-reached") }
@@ -218,11 +218,43 @@ export const evidence = [
   },
   {
     finding: "Thin recurrent mixers on the cheapest Transformer (A025)",
-    status: ["evaluating"],
-    evidence: "At 750 updates it keeps about 15% of A010's BPB margin over B1A.",
-    meaning: "The BPB cost criterion of 0.90 will likely fail.",
-    limit: "Interim, one seed. No verdict yet.",
-    src: "R81"
+    status: ["falsified"],
+    evidence: `Cost to B1A's BPB 0.985, or 0.949 optimized. Recall never reached B1A's level. ${kind("estimated")}`,
+    meaning: "The hybrid family breaks even with the cheapest Transformer. It is closed at this context length.",
+    limit: "One seed. Holds for this regime only.",
+    src: "I251, I252"
+  },
+  {
+    finding: "A windowed B1A is only slightly cheaper",
+    status: ["supported"],
+    evidence: `A 512 token window saves 8.6% per update, with up to 0.010 BPB loss. ${kind("measured")}`,
+    meaning: "Not cheaper to matched quality. B1A stays the frontier baseline.",
+    limit: "One timing session. An earlier estimate of 10 to 30% is superseded.",
+    src: "I247, I252"
+  },
+  {
+    finding: "Parity: negative eigenvalue recurrence vs small Transformers",
+    status: ["supported"],
+    evidence: `Tiny models trained at length 64 and tested at 256. Recurrence scored 0.96 to 0.98, Transformers about 0.50. ${kind("measured")}`,
+    meaning: "A real but narrow expressivity asymmetry.",
+    limit: "Synthetic and prior art. Transformers also failed in distribution here.",
+    src: "I253"
+  },
+  {
+    finding: "Parity inside the language model",
+    status: ["preliminary"],
+    evidence: `A025n learned it in one of three runs. B1A never did, through 1,500 updates. ${kind("measured")}`,
+    meaning: "The mechanism is available, but it does not emerge reliably at this signal.",
+    limit: "About 6% sparse synthetic data. A chosen benchmark.",
+    src: "I254, I256, I257"
+  },
+  {
+    finding: "A025n vs B1A on text mixed with parity data",
+    status: ["preliminary"],
+    evidence: `Cost to B1A's BPB 0.939. BPB 0.017 to 0.026 lower at 750 updates, two seeds. ${kind("estimated")}`,
+    meaning: "The gap appears whether or not parity was learned.",
+    limit: "Below the frozen 0.90 criterion. Mixed data only.",
+    src: "I255, I256"
   }
 ];
 
@@ -342,7 +374,8 @@ export const capabilities = [
   { cap: "Grammar", status: "unreliable", note: "All models score near chance at 4M parameters with our instrument." },
   { cap: "Relational binding", status: "unreliable", note: "Earlier instruments were too weak to separate models at this scale." },
   { cap: "Long range memory", status: "parity", note: "No CIR advantage found. Softmax models use little context beyond about 2,000 tokens here." },
-  { cap: "State tracking (synthetic)", status: "untested", note: "Parity, modular counting and permutation tasks are queued as H032." },
+  { cap: "State tracking (synthetic)", status: "better", note: "Parity extrapolates in tiny recurrent models with negative eigenvalues. Modular counting is not solved." },
+  { cap: "State tracking in a language model", status: "mixed", note: "Learned in one of three runs. B1A never learned it. Not reliable yet." },
   { cap: "Reasoning", status: "untested", note: "Not measurable at this scale with current instruments." },
   { cap: "Coherent generation", status: "fails-all", note: "Fails for every 4M model, CIR and Transformer alike." },
   { cap: "Robustness", status: "untested", note: "Not yet evaluated." }
@@ -362,16 +395,12 @@ const renderCapabilities = () => table({
 // ---------- active experiments ----------
 
 export const experiments = [
-  { id: "R81", question: "Can thin recurrent mixers added to B1A beat B1A on BPB or recall cost?", status: "running",
-    note: "Frozen criteria: BPB cost ≤ 0.90 and recall cost ≤ 0.75. Interim curves suggest the BPB criterion will fail." },
-  { id: "R82", question: "How much can an optimized implementation save, and how cheap is a windowed B1A?", status: "queued",
-    note: "One canonical timing session after R81. It does not change the R81 verdict." },
-  { id: "H032", question: "Can recurrence with negative eigenvalues track state where one attention layer cannot?", status: "queued",
-    note: "Synthetic parity, modular counting and permutations. Prior art covers this idea, so any result is a narrow capability claim." },
-  { id: "R74", question: "Can the dense projections of a mixing layer be removed without losing quality?", status: "queued",
-    note: "Now also compared with B1A." },
-  { id: "A026", question: "Does the negative eigenvalue variant keep language quality?", status: "conditional",
-    note: "Runs only if H032 passes its synthetic tests." }
+  { id: "R88", question: "With 15% parity examples, does A025n learn parity on the seed that failed?", status: "running",
+    note: "If it fails, the capability path closes at this scale." },
+  { id: "R89", question: "Does a short warm up on a formal language save total tokens to matched quality?", status: "queued",
+    note: "Tests B1A and A025 against clean controls. Criterion: total cost ≤ 0.90." },
+  { id: "H033", question: "Does that saving depend on organization, favoring recurrence with negative eigenvalues?", status: "queued",
+    note: "Draft hypothesis, low credence. R89 gives the first evidence." }
 ];
 
 const renderExperiments = () => table({
@@ -399,7 +428,11 @@ export const timeline = [
   { date: "3 Oct", title: "Generic modules close the gap", body: "Engram and n gram heads helped Transformers as much or more. The delta specific edge fell to about zero." },
   { date: "3 Oct", title: "Cheapest Transformer found: B1A", body: "One global attention layer matched the old baseline at half the cost per token." },
   { date: "4 Oct", title: "Corrections and a new direction", body: "Equal compute gave a BPB tie. The recall estimator was corrected. An analytic bound redirected the search." },
-  { date: "4 Oct", title: "Long copy probe", body: "Recurrent state carried almost no verbatim copies past an attention window. The long context route weakened further." }
+  { date: "4 Oct", title: "Long copy probe", body: "Recurrent state carried almost no verbatim copies past an attention window. The long context route weakened further." },
+  { date: "4 Oct", title: "The cheapest hybrid breaks even", body: "A025 reached 0.985× B1A. The delta hybrid family was closed for BPB at this context length." },
+  { date: "4 Oct", title: "Parity separates the organizations", body: "Recurrence with negative eigenvalues learned parity. Small Transformers did not." },
+  { date: "5 Oct", title: "Unreliable inside the language model", body: "Parity emerged in one of three language model runs. The capability claim was narrowed." },
+  { date: "5 Oct", title: "Formal language warm up", body: "Training briefly on a formal language before text is under test. It is compared across organizations." }
 ];
 
 const renderTimeline = () => `<ol class="timeline" role="list">
