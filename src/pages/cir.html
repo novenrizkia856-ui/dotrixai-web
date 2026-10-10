@@ -1,6 +1,6 @@
 <!-- page {
   "title": "CIR · Cost efficient intelligence research · DotrixAI",
-  "description": "CIR is an active DotrixAI research program on lower cost to capability architectures. Current evidence, failures, threats and limitations.",
+  "description": "CIR is an active DotrixAI research program on lower cost to capability systems. Dated updates, evidence, failures and limitations.",
   "nav": "cir"
 } -->
 <header class="page_head">
@@ -28,7 +28,7 @@
 <nav class="section is-flush-top" aria-label="On this page">
   <div class="u-container">
     <ol class="toc" role="list">
-      <li><a href="#latest-title"><span class="toc_num">Now</span>Latest update</a></li>
+      <li><a href="#updates-title"><span class="toc_num">Log</span>Research updates</a></li>
       <li><a href="#objective-title"><span class="toc_num">01</span>Objective</a></li>
       <li><a href="#gates-title"><span class="toc_num">02</span>Gates</a></li>
       <li><a href="#state-title"><span class="toc_num">03</span>Current state</a></li>
@@ -48,18 +48,18 @@
   </div>
 </nav>
 
-<section class="section is-light" aria-labelledby="latest-title">
+<section class="section is-light" aria-labelledby="updates-title">
   <div class="u-container">
-    <div class="grid">
-      <div class="col-4">
-        <span class="section_eyebrow u-mono">Latest research update</span>
-        <h2 class="u-display-m u-max-20 reveal" id="latest-title"><time datetime="{{cirAsOfIso}}">{{cirAsOf}}</time></h2>
-        <p class="u-paragraph-xs u-faded u-mt-6 u-max-40 reveal">The honest position today: the program objective has not been reached.</p>
+    <div class="grid u-mb-8">
+      <div class="col-7">
+        <span class="section_eyebrow u-mono">Research log · latest {{cirAsOf}}</span>
+        <h2 class="u-display-l reveal" id="updates-title">Research updates, newest first.</h2>
       </div>
-      <div class="col-8 reveal">
-        {{cirLatest}}
+      <div class="col-5">
+        <p class="u-paragraph-s hero_side reveal">Every snapshot we have published stays here with its date. Older entries remain as written, even where later evidence changed them.</p>
       </div>
     </div>
+    <div class="reveal">{{cirUpdates}}</div>
   </div>
 </section>
 
@@ -115,7 +115,7 @@
         <h2 class="u-display-l reveal" id="gates-title">Impact gates, not milestones.</h2>
       </div>
       <div class="col-5">
-        <p class="u-paragraph-s hero_side reveal">Each gate is a cost ratio at matched capability. Status reflects only the latest evidence. A gate passed against a weaker baseline does not count against a stronger one.</p>
+        <p class="u-paragraph-s hero_side reveal">Each gate is a cost ratio at matched capability. CIR's own architectures and the generic counted organization are scored separately. Status reflects only the latest evidence.</p>
       </div>
     </div>
     <div class="reveal">{{cirGates}}</div>
@@ -132,17 +132,18 @@
       </div>
       <div class="col-8">
         <ul class="facts reveal" role="list" aria-label="Current research state">
-          <li><span class="u-mono">Strongest reproduced candidate</span><p><strong>A010.</strong> Two delta rule recurrent layers, then one softmax attention layer. Trained with Muon.</p></li>
-          <li><span class="u-mono">Strongest baseline</span><p><strong>B1A.</strong> A Transformer with a single global attention layer. Found by our own baseline attack.</p></li>
-          <li><span class="u-mono">Parameters</span><p>About 3.94M effective. A second width reaches about 7M. {{tagMeasured}}</p></li>
-          <li><span class="u-mono">Context and batch</span><p>4,096 tokens. Batch of 8 sequences, or 32,768 tokens per update.</p></li>
-          <li><span class="u-mono">Token budget</span><p>1,500 updates, about 49M tokens. English and Indonesian text.</p></li>
+          <li><span class="u-mono">Program phase</span><p>CIR's own mixers are closed for language modeling at this scale. The main line is a generic counted organization.</p></li>
+          <li><span class="u-mono">Counted organization</span><p>A small one attention Transformer and counted n gram tables. Also a context cache, a longest match pointer and a tiny gate.</p></li>
+          <li><span class="u-mono">Cheapest configuration</span><p><strong>A039.</strong> 0.82M parameters, trained on 1,024 token chunks. {{tagMeasured}}</p></li>
+          <li><span class="u-mono">Target quality</span><p><strong>TF LGN.</strong> A local global Transformer with n gram heads, at its final quality.</p></li>
+          <li><span class="u-mono">Cheapest Transformer</span><p><strong>B1A.</strong> A Transformer with a single global attention layer, used for equal budget comparisons.</p></li>
+          <li><span class="u-mono">Quality metric</span><p>Bits per token, scored only where the 12 token context never appears in training.</p></li>
+          <li><span class="u-mono">Data</span><p>English, 3.86M tokens, and Indonesian, 31.2M tokens. Context of 4,096 tokens.</p></li>
           <li><span class="u-mono">Hardware</span><p>One commodity laptop CPU, Intel Core i5 13420H, two physical cores. No GPU yet.</p></li>
-          <li><span class="u-mono">Seeds</span><p>Two seeds for the main A010 comparisons. Most other results use one seed.</p></li>
-          <li><span class="u-mono">Cost to Q against B1A</span><p>A010: BPB 1.23 to 1.27×. A025, the cheapest hybrid: 0.949 to 0.985×. {{tagEstimated}}</p></li>
-          <li><span class="u-mono">Cost to Q, earlier baselines</span><p>0.59 to 0.64× in BPB, two seeds. {{tagEstimated}}</p></li>
-          <li><span class="u-mono">Capability evidence</span><p>BPB, copying, recall, bracket closing and parity. Grammar and reasoning are not yet measurable.</p></li>
-          <li><span class="u-mono">Scaling evidence</span><p>Three widths at small scale. Nothing above about 7M parameters. Larger runs exceed the current CPU budget.</p></li>
+          <li><span class="u-mono">Seeds</span><p>Two seeds for the main counted results. Per language and ladder results use one.</p></li>
+          <li><span class="u-mono">Training cost to TF LGN quality</span><p>Average 0.062 to 0.063×. Indonesian 0.032×. English 0.149× at best. {{tagEstimated}}</p></li>
+          <li><span class="u-mono">Inference cost</span><p>Prefill 0.48 to 0.49× TF LGN. Decoding not measured. Count tables need about 434 MB. {{tagEstimated}}</p></li>
+          <li><span class="u-mono">CIR mixers against B1A</span><p>A010 1.23 to 1.27×. A025, the cheapest hybrid, 0.949 to 0.985×. {{tagEstimated}}</p></li>
         </ul>
       </div>
     </div>
@@ -156,14 +157,15 @@
         <div class="col-4">
           <span class="section_eyebrow u-mono">04 · Current claim</span>
           <h2 class="u-display-m u-max-20 reveal" id="claim-title">Current claim</h2>
-          <p class="u-paragraph-xs u-mt-6 u-max-40 claim_meta reveal">Scope: about 4M parameters, 4,096 token context, one laptop CPU, up to 49M tokens.</p>
+          <p class="u-paragraph-xs u-mt-6 u-max-40 claim_meta reveal">Scope: networks up to 1.4M parameters, 4,096 token context, one laptop CPU. Snapshot of {{cirAsOf}}.</p>
         </div>
         <div class="col-8 prose u-paragraph-m reveal">
-          <p>In this small regime, A010 matched a gated local global Transformer's BPB. It needed 0.63 to 0.64× of that model's training cost. This was reproduced across two seeds.</p>
-          <p>Our own baseline attack then found a cheaper Transformer, B1A. It matches that baseline at about half the cost per token.</p>
-          <p>Against B1A, A010 needs about 1.23 to 1.27× the cost to reach the same BPB. The cheapest hybrid, A025, only breaks even at 0.985×.</p>
-          <p>One structural asymmetry is real. Recurrence that allows negative eigenvalues learns parity, and B1A never does. Inside a language model it emerged in one of three runs.</p>
-          <p><strong>No CIR organization has a cost advantage over the cheapest fair Transformer we know.</strong> The program objective has not been reached.</p>
+          <p>CIR's own architectures have no cost advantage over the cheapest fair Transformer. The delta hybrid family breaks even at best.</p>
+          <p>A generic organization does show one. A small Transformer with counted n gram statistics reaches TF LGN quality cheaply.</p>
+          <p>Averaged over two languages, it needs 0.062 to 0.063× of TF LGN's training cost. This holds on two seeds.</p>
+          <p>The average hides a gap. Indonesian reaches 0.032×. English reaches 0.149× at best, and the gain fades as English data repeats.</p>
+          <p>This is not a new method. Close prior art exists, including modded nanogpt PR 380. Our contribution is attacked, reproducible cost accounting.</p>
+          <p><strong>The breakthrough gate holds only on average and in Indonesian, at small scale.</strong> It is not established in English, at scale, or for CIR's own architecture.</p>
         </div>
       </div>
     </div>
@@ -194,7 +196,7 @@
         <h2 class="u-display-l reveal" id="cost-title">A curve, not a headline number.</h2>
       </div>
       <div class="col-5">
-        <p class="u-paragraph-s hero_side reveal">An advantage at one quality level can vanish at another. We report cost at several levels of Q.</p>
+        <p class="u-paragraph-s hero_side reveal">An advantage at one quality level, budget or language can vanish at another. We report each separately.</p>
       </div>
     </div>
     <div class="grid u-mb-8">
@@ -205,10 +207,13 @@
         <ul class="rows reveal" aria-label="Cost decomposition terms">
           <li><div class="row"><div><h3>ρ_u</h3><p class="row_body">Relative updates, or tokens, needed to reach matched Q.</p></div></div></li>
           <li><div class="row"><div><h3>ρ_c</h3><p class="row_body">Relative cost per update, measured on one canonical instrument.</p></div></div></li>
-          <li><div class="row"><div><h3>A010 against B1A</h3><p class="row_body">ρ_u about 0.70, ρ_c about 1.75 to 1.80. So the cost ratio is about 1.23 to 1.27. {{tagEstimated}}</p></div></div></li>
+          <li><div class="row"><div><h3>Counted statistics</h3><p class="row_body">Counting the tables costs about 0.1 to 0.2% of training. Their lookup cost is included at inference.</p></div></div></li>
         </ul>
       </div>
     </div>
+    <h3 class="u-display-s u-mb-6 reveal">Counted organization, step by step</h3>
+    {{cirCounted}}
+    <h3 class="u-display-s u-mt-8 u-mb-6 reveal">Earlier phase: CIR mixers against Transformers</h3>
     {{cirCurve}}
     <p class="u-paragraph-xs u-faded u-mt-6 u-max-60">The cheapest Transformer, B1A, is not on this chart. Its ratios come from a different cost session. Ratios are only compared within one valid session.</p>
   </div>
@@ -220,7 +225,7 @@
       <div class="col-4">
         <span class="section_eyebrow u-mono">07 · Baseline adversary</span>
         <h2 class="u-display-m u-max-20 reveal" id="baseline-title">We keep making the Transformer stronger.</h2>
-        <p class="u-paragraph-xs u-faded u-mt-6 u-max-40 reveal">A baseline lane acts as an adversary. Several CIR claims weakened or disappeared as a result.</p>
+        <p class="u-paragraph-xs u-faded u-mt-6 u-max-40 reveal">A baseline lane acts as an adversary. Several claims weakened or disappeared as a result. The counted claim was attacked the same way.</p>
       </div>
       <div class="col-8">
         <ul class="rows reveal" aria-label="Baseline upgrades and their effect on CIR claims">
@@ -234,6 +239,10 @@
           <li><div class="row"><div><h3>Wider B1A at equal compute</h3><p class="row_body">BPB tied with A010. Recall was slightly worse.</p></div><span class="row_tag">Tie</span></div></li>
           <li><div class="row"><div><h3>Windowed B1A</h3><p class="row_body">Measured at only 8.6% cheaper per update, with a small quality loss. B1A stays the frontier.</p></div><span class="row_tag">Minor threat</span></div></li>
           <li><div class="row"><div><h3>Cheapest hybrid against B1A</h3><p class="row_body">A025 broke even at 0.985×, or 0.949× optimized. Both frozen criteria failed.</p></div><span class="row_tag">Family closed</span></div></li>
+          <li><div class="row"><div><h3>Counted claim: n gram heads, larger models, longer training</h3><p class="row_body">TF LGN, Transformers up to width 448 and a longer trained B1A all cost more.</p></div><span class="row_tag">Claim held</span></div></li>
+          <li><div class="row"><div><h3>Counted claim: the same short context trick</h3><p class="row_body">TF LGN trained on short chunks lost quality and never reached the target.</p></div><span class="row_tag">Claim held</span></div></li>
+          <li><div class="row"><div><h3>Direct cost measurement of TF LGN</h3><p class="row_body">The bridged estimate was about 5% low. Every ratio became less favourable.</p></div><span class="row_tag">Claim corrected</span></div></li>
+          <li><div class="row"><div><h3>Per language scoring and longer budgets</h3><p class="row_body">English loses its advantage at 2× and 4× budget. Larger Transformers above 4× are unattacked.</p></div><span class="row_tag">Claim narrowed</span></div></li>
         </ul>
       </div>
     </div>
@@ -261,6 +270,12 @@
       <div class="tile reveal"><span class="u-mono">Architecture</span><h3>Thin recurrent hybrids against B1A</h3><p>A025 kept part of A010's learning advantage but only broke even on cost.</p></div>
       <div class="tile reveal"><span class="u-mono">Analysis</span><h3>Training rules specific to recurrence</h3><p>Every training rule lever found also applies to Transformers. None is specific to CIR here.</p></div>
       <div class="tile reveal"><span class="u-mono">Capability</span><h3>Reliable state tracking from sparse data</h3><p>With 6% parity examples, the capability emerged in only one of three runs.</p></div>
+      <div class="tile reveal"><span class="u-mono">Capability</span><h3>Cheap state tracking</h3><p>A one layer Transformer with written steps reached the permutation target more cheaply.</p></div>
+      <div class="tile reveal"><span class="u-mono">Learning</span><h3>Formal language warm up at 4M</h3><p>A short warm up before text raised BPB. It hurt the CIR hybrid twice as much.</p></div>
+      <div class="tile reveal"><span class="u-mono">Organization</span><h3>Counts inside the training loss</h3><p>Training the network jointly with the counts failed. Mixing at inference works.</p></div>
+      <div class="tile reveal"><span class="u-mono">Organization</span><h3>One gate for every language</h3><p>A gate tuned on one language was worse than fixed weights on the other.</p></div>
+      <div class="tile reveal"><span class="u-mono">Organization</span><h3>Smaller networks, pruned tables, first layer attention</h3><p>Below 0.82M parameters, pruning rare counts or moving attention first all made results worse.</p></div>
+      <div class="tile reveal"><span class="u-mono">Method</span><h3>Averages across languages</h3><p>An average hid a large English gap. Claims are now reported per language.</p></div>
       <div class="tile reveal"><span class="u-mono">Method</span><h3>Ranking architectures at 250 updates</h3><p>Rank correlation with final results was 0.09. Discovery runs now last 750 updates.</p></div>
       <div class="tile reveal"><span class="u-mono">Method</span><h3>Uncontrolled timing</h3><p>Sessions with unpinned cores or background load are quarantined and remeasured.</p></div>
       <div class="tile reveal"><span class="u-mono">Method</span><h3>Endpoint cost for capability</h3><p>Charging a plateaued baseline its full budget inflated CIR's advantage. It was corrected.</p></div>
@@ -280,7 +295,7 @@
       </div>
     </div>
     <div class="reveal">{{cirCapabilities}}</div>
-    <p class="u-paragraph-xs u-faded u-mt-6 u-max-60">Status compares A010 with the strongest relevant Transformer at the same scale. Probes are exploratory unless stated otherwise.</p>
+    <p class="u-paragraph-xs u-faded u-mt-6 u-max-60">Status compares the named system with the strongest relevant Transformer at the same scale. Probes are exploratory unless stated otherwise.</p>
   </div>
 </section>
 
@@ -292,34 +307,39 @@
         <h2 class="u-display-l reveal" id="scaling-title">Small scale results do not prove large scale behavior.</h2>
       </div>
       <div class="col-5">
-        <p class="u-paragraph-s hero_side reveal">Three widths have been tested, all below 10M parameters. Evidence, extrapolation and hypothesis are kept apart.</p>
+        <p class="u-paragraph-s hero_side reveal">Counted networks stay below 1.4M parameters and CIR mixers below 7M. Evidence, extrapolation and hypothesis are kept apart.</p>
       </div>
     </div>
     <div class="tiles">
       <div class="tile reveal">
         <span class="u-mono">Evidence {{tagEstimated}}</span>
-        <h3>What was observed</h3>
-        <p>Against the local global Transformer, the ratio rose from 0.64 to 0.72 at width 448. At a fixed tokens per parameter ratio, the BPB margin grew from 2.8M to 4M. Against B1A, ρ_u stayed at 0.70 and 0.71 across widths.</p>
+        <h3>Budget ladder</h3>
+        <p>Against B1A at equal budget, the counted average stays at 0.048 to 0.067×. That holds from 0.5× to 4×. Indonesian stays near 0.04×.</p>
+      </div>
+      <div class="tile reveal">
+        <span class="u-mono">Evidence {{tagEstimated}}</span>
+        <h3>English does not hold</h3>
+        <p>English moves from 0.053× to 0.121×. At 2× and 4× the target is out of reach.</p>
       </div>
       <div class="tile reveal">
         <span class="u-mono">Confound</span>
-        <h3>Tokens per parameter</h3>
-        <p>The width 448 run kept tokens fixed. Tokens per parameter fell from 12.3 to 6.4. That alone could explain the weaker ratio.</p>
+        <h3>Data repetition</h3>
+        <p>The English corpus is seen 3.2 times at 1× and 12.7 times at 4×. Indonesian is seen far less. R161 tests this.</p>
       </div>
       <div class="tile reveal">
         <span class="u-mono">Extrapolation {{tagProjected}}</span>
-        <h3>Where attention cost goes</h3>
-        <p>Attention's share of cost falls roughly with width. At width 4,096 and context 4,096, it is about 8%. Replacing attention then saves little.</p>
+        <h3>A fitted multiplier</h3>
+        <p>A loss curve fit suggests about 15× equivalent compute. Part of it reflects the fixed size opponent's limit.</p>
       </div>
       <div class="tile reveal">
-        <span class="u-mono">Hypothesis</span>
-        <h3>Where an asymmetry may remain</h3>
-        <p>Recurrence keeps constant cost per token as context grows. That may matter only far beyond our tested context.</p>
+        <span class="u-mono">Evidence {{tagEstimated}}</span>
+        <h3>CIR mixers across widths</h3>
+        <p>Against B1A, A010's update advantage stayed at 0.70 to 0.71 from 4M to 7M. Its cost stayed above 1.</p>
       </div>
       <div class="tile reveal">
         <span class="u-mono">Unknown</span>
         <h3>Not yet tested</h3>
-        <p>Anything above about 7M parameters. Training beyond 1,500 updates. GPUs and other CPUs. Longer contexts with real long range needs. These exceed the current CPU budget.</p>
+        <p>Larger networks, larger Transformers above 4× budget, bigger English data, GPUs. These exceed the current CPU budget.</p>
       </div>
     </div>
   </div>
@@ -334,15 +354,15 @@
         <p class="u-paragraph-xs u-faded u-mt-6 u-max-40 reveal">Some of these threats have already materialized. They are listed in order of current weight.</p>
       </div>
       <div class="col-8">
-        <ul class="rows reveal" aria-label="Threats to the CIR claim">
-          <li><div class="row"><div><h3><span class="row_index">01</span>Stronger Transformer baselines</h3><p class="row_body">B1A already removed the BPB advantage. Cheaper Transformers may still exist.</p></div><span class="row_tag">Materialized</span></div></li>
-          <li><div class="row"><div><h3><span class="row_index">02</span>Generic modules help Transformers too</h3><p class="row_body">Engram and n gram heads gave Transformers equal or larger gains.</p></div><span class="row_tag">Materialized</span></div></li>
-          <li><div class="row"><div><h3><span class="row_index">03</span>An analytic cost bound</h3><p class="row_body">At this context length, swapping the mixer cannot reach the 0.50 gate. Here it cannot reach 0.75 either.</p></div><span class="row_tag">Estimated</span></div></li>
-          <li><div class="row"><div><h3><span class="row_index">04</span>Scaling degradation</h3><p class="row_body">Attention's share of cost shrinks with width. Mixer savings shrink with it.</p></div><span class="row_tag">Projected</span></div></li>
-          <li><div class="row"><div><h3><span class="row_index">05</span>A narrow, unreliable capability edge</h3><p class="row_body">Parity is the only asymmetry found. It emerged in one of three language model runs.</p></div><span class="row_tag">Open</span></div></li>
-          <li><div class="row"><div><h3><span class="row_index">06</span>Hardware specificity</h3><p class="row_body">One laptop CPU. Thin recurrent mixers are limited by call overhead there, not arithmetic.</p></div><span class="row_tag">Open</span></div></li>
-          <li><div class="row"><div><h3><span class="row_index">07</span>Optimizer and tuning sensitivity</h3><p class="row_body">Muon already reversed one result. Learning rate choices can still shift ratios.</p></div><span class="row_tag">Open</span></div></li>
-          <li><div class="row"><div><h3><span class="row_index">08</span>Prior art</h3><p class="row_body">Recurrent state tracking with negative eigenvalues appears in DeltaNet and RWKV 7 work.</p></div><span class="row_tag">Acknowledged</span></div></li>
+        <ul class="rows reveal" aria-label="Threats to the current claims">
+          <li><div class="row"><div><h3><span class="row_index">01</span>Language and data repetition</h3><p class="row_body">The English gain is small and fades as data repeats. The cause is under test.</p></div><span class="row_tag">Partly materialized</span></div></li>
+          <li><div class="row"><div><h3><span class="row_index">02</span>Scale</h3><p class="row_body">Networks stay below 1.4M parameters. Larger Transformers may catch up above 4× budget.</p></div><span class="row_tag">Open</span></div></li>
+          <li><div class="row"><div><h3><span class="row_index">03</span>Prior art</h3><p class="row_body">The counted organization matches published work, including modded nanogpt PR 380.</p></div><span class="row_tag">Acknowledged</span></div></li>
+          <li><div class="row"><div><h3><span class="row_index">04</span>Deployment cost</h3><p class="row_body">Decoding is unmeasured and the count tables need about 434 MB.</p></div><span class="row_tag">Open</span></div></li>
+          <li><div class="row"><div><h3><span class="row_index">05</span>The gate needs domain text</h3><p class="row_body">About 4,000 tokens of text from the target domain are needed. A gate does not transfer across languages.</p></div><span class="row_tag">Limits use</span></div></li>
+          <li><div class="row"><div><h3><span class="row_index">06</span>Same tools for the Transformer</h3><p class="row_body">Given the same counted tools, a Transformer may match it. No D2 claim is made.</p></div><span class="row_tag">Not claimed</span></div></li>
+          <li><div class="row"><div><h3><span class="row_index">07</span>CIR specific architecture</h3><p class="row_body">Mixer substitution is bounded analytically, and no CIR specific candidate remains.</p></div><span class="row_tag">Materialized</span></div></li>
+          <li><div class="row"><div><h3><span class="row_index">08</span>Hardware specificity</h3><p class="row_body">One laptop CPU. GPU behavior may differ.</p></div><span class="row_tag">Open</span></div></li>
         </ul>
       </div>
     </div>
@@ -357,19 +377,19 @@
         <h2 class="u-display-l reveal" id="active-title">What is being tested now.</h2>
       </div>
       <div class="col-5">
-        <p class="u-paragraph-s hero_side reveal">Criteria for every confirmation run are frozen before results exist. Completion times are not given, since they depend on shared hardware.</p>
+        <p class="u-paragraph-s hero_side reveal">Criteria for every run are frozen before results exist. Completion times are not given, since they depend on shared hardware.</p>
       </div>
     </div>
     <div class="reveal">{{cirExperiments}}</div>
     <div class="panel is-ivory u-mt-8 reveal">
       <h3 class="u-display-xs u-mb-4">What would falsify the current direction</h3>
       <ul class="rows is-single" aria-label="Falsification conditions">
-        <li><div class="row"><h3>R88 fails: parity still does not emerge reliably with a stronger signal.</h3></div></li>
-        <li><div class="row"><h3>R89 shows the same token saving for both organizations, or none at all.</h3></div></li>
-        <li><div class="row"><h3>Any surviving edge vanishes on a second seed or a larger width.</h3></div></li>
-        <li><div class="row"><h3>Windowed Transformers with exact lookup match long context capability more cheaply.</h3></div></li>
+        <li><div class="row"><h3>The Indonesian gain survives heavy repetition in R161, so the English gap is about language.</h3></div></li>
+        <li><div class="row"><h3>A larger English corpus still leaves English above 0.10×.</h3></div></li>
+        <li><div class="row"><h3>A larger Transformer above 4× budget matches the counted organization.</h3></div></li>
+        <li><div class="row"><h3>Decoding cost or table memory erases the inference advantage.</h3></div></li>
       </ul>
-      <p class="u-paragraph-xs u-faded u-mt-6 u-max-60">R81 failed on 4 October and triggered a first principles reset. B1A stays the mandatory comparator.</p>
+      <p class="u-paragraph-xs u-faded u-mt-6 u-max-60">Each result is checked against criteria frozen before the run. B1A and TF LGN stay mandatory comparators.</p>
     </div>
   </div>
 </section>
@@ -380,7 +400,7 @@
       <div class="col-4">
         <span class="section_eyebrow u-mono">13 · Key turning points</span>
         <h2 class="u-display-m u-max-20 reveal" id="timeline-title">How the research changed when evidence changed.</h2>
-        <p class="u-paragraph-xs u-faded u-mt-6 u-max-40 reveal">All dates are 2026.</p>
+        <p class="u-paragraph-xs u-faded u-mt-6 u-max-40 reveal">All dates are 2026, newest first.</p>
       </div>
       <div class="col-8 reveal">
         {{cirTimeline}}
@@ -423,13 +443,14 @@
         </div>
         <div class="col-7">
           <ul class="rows is-single reveal" aria-label="Limitations of current CIR evidence">
-            <li><div class="row"><h3>Model scale is small: about 4M parameters, at most about 7M.</h3></div></li>
+            <li><div class="row"><h3>Model scale is small: counted networks up to 1.4M parameters, CIR mixers up to 7M.</h3></div></li>
             <li><div class="row"><h3>Hardware scope is one laptop CPU. No GPU results exist.</h3></div></li>
-            <li><div class="row"><h3>Training is short: at most 49M tokens, below compute optimal budgets.</h3></div></li>
-            <li><div class="row"><h3>Quality is mostly BPB on a small English and Indonesian corpus.</h3></div></li>
+            <li><div class="row"><h3>The English corpus is small, 3.86M tokens, so it repeats quickly.</h3></div></li>
+            <li><div class="row"><h3>Quality is bits per token on unseen contexts, in English and Indonesian.</h3></div></li>
             <li><div class="row"><h3>Grammar, binding, reasoning and generation are not measurable at this scale.</h3></div></li>
-            <li><div class="row"><h3>Most results use one seed. Only the main A010 comparisons use two.</h3></div></li>
-            <li><div class="row"><h3>Mechanisms overlap with prior art, including DeltaNet, RWKV 7 and Engram.</h3></div></li>
+            <li><div class="row"><h3>Main results use two seeds. Per language and ladder results use one.</h3></div></li>
+            <li><div class="row"><h3>Decoding cost is unmeasured. Count tables need about 434 MB of memory.</h3></div></li>
+            <li><div class="row"><h3>Methods overlap with prior art, including modded nanogpt, DeltaNet, RWKV 7 and Engram.</h3></div></li>
             <li><div class="row"><h3>Results can change as baselines improve. This has already happened several times.</h3></div></li>
             <li><div class="row"><h3>CPU cost estimates may not transfer to GPU scale training.</h3></div></li>
           </ul>

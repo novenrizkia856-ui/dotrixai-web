@@ -566,12 +566,45 @@ main:focus, footer:focus { outline: none; }
 @media (max-width: 640px) { .kinds { grid-template-columns: 1fr; gap: 1.25rem; } }
 @media (max-width: 640px) { .formula { white-space: normal; overflow-wrap: anywhere; } }
 
-/* latest update */
-.updates { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gutter); }
-.update { border-top: 1px solid var(--rule); padding-top: 1.25rem; }
-.update h3 { font-family: var(--font-sans); font-weight: 500; font-size: 1.125rem; line-height: 1.35; margin-bottom: 0.5rem; }
-.update p { font-size: 1.0625rem; line-height: 1.5; color: var(--text-faded); }
-@media (max-width: 640px) { .updates { grid-template-columns: 1fr; } }
+/* research log: dated snapshots, newest first */
+.log { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--rule); }
+.log_entry { display: grid; grid-template-columns: minmax(0, 15rem) minmax(0, 1fr); gap: var(--gutter); padding: 1.75rem 0 2rem; border-bottom: 1px solid var(--rule); scroll-margin-top: calc(var(--nav-height) + 1.5rem); }
+.log_when { display: flex; flex-direction: column; align-items: flex-start; gap: 0.4rem; }
+.log_date { font-family: var(--font-sans); font-weight: 500; font-size: 1.25rem; line-height: 1.25; }
+.log_entry.is-latest .log_date { font-size: 1.5rem; }
+.log_time { color: var(--text-faded); }
+.log_note { font-family: var(--font-sans); font-size: 0.8125rem; color: var(--text-faded); font-style: italic; }
+.log_items { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem var(--gutter); }
+.log_items h3 { font-family: var(--font-sans); font-weight: 500; font-size: 1.0625rem; line-height: 1.35; margin-bottom: 0.4rem; }
+.log_items p { font-size: 1rem; line-height: 1.5; color: var(--text-faded); }
+.log_entry:not(.is-latest) .log_items h3 { font-size: 1rem; }
+.log_entry:not(.is-latest) .log_items p { font-size: 0.9375rem; }
+.tag.is-latest { background: var(--slate-dark); border-color: var(--slate-dark); color: var(--ivory-light); }
+.tag.is-partial { background: #eef0d8; border-color: #c4c78f; color: #4f5220; }
+@media (max-width: 860px) { .log_entry { grid-template-columns: 1fr; gap: 1rem; } .log_when { flex-direction: row; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 0.9rem; } }
+@media (max-width: 640px) { .log_items { grid-template-columns: 1fr; gap: 1.1rem; } }
+
+/* counted organization cost path */
+.path { margin: 0; padding: clamp(1rem, 0.5rem + 2vw, 2rem); background: var(--bg); border-radius: var(--radius-l); }
+.path_list { list-style: none; padding: 0; margin: 0; }
+.path_step { display: grid; grid-template-columns: 2.25rem minmax(0, 1.4fr) minmax(0, 1fr) 11rem; gap: 1rem; align-items: center; padding: 0.85rem 0; border-top: 1px solid var(--faded-10); }
+.path_step:first-child { border-top: 0; }
+.path_index { color: var(--cloud-dark); }
+.path_label { font-family: var(--font-sans); font-size: 0.9375rem; line-height: 1.4; }
+.path_bar { display: block; width: 100%; height: 0.75rem; }
+.path_track { fill: var(--ivory-dark); }
+.path_fill { fill: #c0582b; }
+.path_gate { stroke: var(--slate-dark); stroke-width: 0.6; stroke-dasharray: 1.5 1.5; vector-effect: non-scaling-stroke; }
+.path_value { font-family: var(--font-sans); font-weight: 500; font-size: 1rem; font-variant-numeric: tabular-nums; text-align: right; }
+.path_meta { display: block; font-weight: 400; color: var(--cloud-dark); margin-top: 0.15rem; }
+.path figcaption { margin-top: 1rem; font-family: var(--font-serif); font-size: 0.9375rem; line-height: 1.5; color: var(--text-faded); max-width: 75ch; }
+.dtable.is-lang { margin-top: 2rem; }
+.dtable.is-lang tbody th { width: 40%; }
+@media (max-width: 860px) {
+  .path_step { grid-template-columns: 2rem minmax(0, 1fr); row-gap: 0.5rem; }
+  .path_bar, .path_value { grid-column: 2; }
+  .path_value { text-align: left; }
+}
 
 /* state facts */
 .facts { list-style: none; padding: 0; margin: 0; }
