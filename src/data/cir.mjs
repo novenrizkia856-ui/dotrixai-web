@@ -10,7 +10,7 @@
 //     over 15 words. `npm run build` checks both.
 // Each export below renders into a {{token}} used by src/pages/cir.html.
 
-export const asOf = { iso: "2026-10-10", label: "10 October 2026" };
+export const asOf = { iso: "2026-10-16", label: "16 October 2026" };
 
 // ---------- small renderers ----------
 
@@ -37,7 +37,14 @@ const STATUS = {
   mixed: "Mixed",
   untested: "Not yet tested",
   "fails-all": "Fails for all models",
-  unreliable: "Instrument unreliable"
+  unreliable: "Instrument unreliable",
+  diagnostic: "Diagnostic",
+  closed: "Closed",
+  withheld: "Values withheld",
+  relabelled: "Relabelled",
+  done: "Done",
+  drafted: "Drafted, not run",
+  paused: "Paused"
 };
 const LABEL = { measured: "Measured", estimated: "Estimated", projected: "Projected" };
 
@@ -61,6 +68,145 @@ ${rows.map((r) => `<tr>${cols.map((c, i) => {
 // an old one except to fix a typo. `restored` marks text first published on the site.
 
 export const updates = [
+  {
+    iso: "2026-10-16", date: "16 October 2026", time: "13:00 UTC",
+    items: [
+      {
+        title: "The primary lane is paused",
+        body: "The owner paused it on 15 October. The target was not reached. The routes still open need far more compute than we have."
+      },
+      {
+        title: "Why we changed direction",
+        body: "Every advantage we found belonged to published parts, or faded with scale. No original lever was found. The reasons are listed at the top of this page."
+      },
+      {
+        title: "A new direction",
+        body: "Our record of preregistered experiments becomes research tasks for AI research agents. A first sample exists. It is not public."
+      },
+      {
+        title: "Some values are withheld",
+        body: "Exact outcomes from 10 to 15 October are answer keys of those tasks. We publish conclusions, evidence IDs and a few headline values."
+      }
+    ]
+  },
+  {
+    iso: "2026-10-15", date: "15 October 2026", time: "daily summary",
+    items: [
+      {
+        title: "Published shifts gave small gains",
+        body: "A gated delta hybrid ran at 20M and 85M parameters, an expert mixture at 85M. FLOP gains were small and far from 0.75. None saved wall clock time with our kernels."
+      },
+      {
+        title: "Cheap published levers did not pay",
+        body: "Canon layers, gated attention and sequence length warmup saved a few FLOPs. They cost more time than they saved."
+      },
+      {
+        title: "13:53 UTC: the primary lane is paused",
+        body: "The owner paused it because the target is out of reach with current resources. The last GPU run finished six minutes later."
+      },
+      {
+        title: "14:59 UTC: a new direction",
+        body: "The owner chose research tasks, benchmarks and environments for AI research agents. They are built from the CIR record."
+      }
+    ]
+  },
+  {
+    iso: "2026-10-14", date: "14 October 2026", time: "daily summary",
+    items: [
+      {
+        title: "First GPU scale point",
+        body: "Dense models of 4.7M to 18.9M parameters trained for one epoch on one A100. Against published n gram interpolation, the counted edge was about 1.0 on web text. On Wikipedia text it was 0.51 to 0.57."
+      },
+      {
+        title: "A published recipe raised the bar",
+        body: "A strong 20M recipe needs about 0.58× the time of plain Transformers. Five candidates were screened against it. None reached 0.75."
+      },
+      {
+        title: "Early gains fade",
+        body: "Count and copy channels sped up early training. Their advantage faded before a fifth of an epoch."
+      },
+      {
+        title: "A larger knowledge base",
+        body: "We verified 118 more sources. Most published efficiency gains shrink against strong baselines and at scale."
+      }
+    ]
+  },
+  {
+    iso: "2026-10-13", date: "13 October 2026", time: "daily summary",
+    items: [
+      {
+        title: "Opponents built from published parts",
+        body: "Against opponents with published n gram tools, our laptop ratio rose to 0.26 to 0.54. Before, against plain Transformers, it was about 0.04 to 0.06."
+      },
+      {
+        title: "Every part is published",
+        body: "A prior art check found every component, and their combination, in published work. This includes modded nanogpt PR 380."
+      },
+      {
+        title: "Copying carries the edge",
+        body: "What remained came mostly from copying within the context window. Memorized text did not carry it."
+      },
+      {
+        title: "The lever search stopped",
+        body: "Five first principles cycles found no original training compute lever. A stop rule written in advance ended the search."
+      }
+    ]
+  },
+  {
+    iso: "2026-10-12", date: "12 October 2026", time: "daily summary",
+    items: [
+      {
+        title: "The charter is clarified",
+        body: "The goal is less training compute than the strongest optimized Transformer system. Transformers are allowed and novelty is optional."
+      },
+      {
+        title: "Plain baselines become diagnostic",
+        body: "Ratios against plain Transformers no longer count toward the goal. They are reported for diagnosis only."
+      },
+      {
+        title: "A stricter research method",
+        body: "Each session now binds to the charter. Frozen experiment cards and post run audits are enforced by tools."
+      },
+      {
+        title: "Laptop work continued",
+        body: "Input memory size, data, word classes and quantization were measured. Outcomes are withheld for now."
+      }
+    ]
+  },
+  {
+    iso: "2026-10-11", date: "11 October 2026", time: "daily summary",
+    items: [
+      {
+        title: "An input memory joins the system",
+        body: "Hashed n gram input embeddings joined the counted organization as A051. They are published prior art."
+      },
+      {
+        title: "Inference measured",
+        body: "Decoding, table size, quantization and speculative decoding were measured on the laptop. Outcomes are withheld for now."
+      }
+    ]
+  },
+  {
+    iso: "2026-10-10b", date: "10 October 2026", time: "after 07:47 UTC",
+    items: [
+      {
+        title: "The language gap is mostly repetition",
+        body: "Three tests point to data repetition and the evaluation sets, not language. Exact values are withheld."
+      },
+      {
+        title: "Correction: not a domain shift",
+        body: "The unseen Indonesian Wikipedia set is held out text from the training source. It is not a new domain."
+      },
+      {
+        title: "Correction: tokenizer coverage",
+        body: "Only about 1.6% of the tokenizer's text was Indonesian. Ratios across languages partly measure the tokenizer."
+      },
+      {
+        title: "Correction: table cost",
+        body: "Building the count tables costs about 0.65% of training time. We had stated 0.1 to 0.2%."
+      }
+    ]
+  },
   {
     iso: "2026-10-10", date: "10 October 2026", time: "07:47 UTC",
     items: [
@@ -216,23 +362,23 @@ ${updates.map((u, i) => `<li class="log_entry${i === 0 ? " is-latest" : ""}" id=
 export const gates = [
   {
     gate: "<code>≤ 0.75×</code>", meaning: "Signal",
-    cir: `${tag("not-reached")}<p>Best is A025 at 0.949 to 0.985×, break even with B1A. ${kind("estimated")}</p>`,
-    counted: `${tag("passed")}<p>Both languages. English from one run. ${kind("estimated")}</p>`
+    primary: `${tag("not-reached")}<p>No candidate reached it against strong recipes at 20M or 85M.</p>`,
+    diagnostic: `${tag("partial")}<p>0.26 to 0.54 against partial opponents on the laptop. About 1.0 at 20M on web text. ${kind("estimated")}</p>`
   },
   {
     gate: "<code>≤ 0.50×</code>", meaning: "Interesting",
-    cir: `${tag("not-reached")}<p>Out of reach for mixer substitution at this context length.</p>`,
-    counted: `${tag("passed")}<p>Both languages. Inference cost is about 0.49×. ${kind("estimated")}</p>`
+    primary: tag("not-reached"),
+    diagnostic: `${tag("partial")}<p>Partly, against partial opponents on the laptop only. ${kind("estimated")}</p>`
   },
   {
     gate: "<code>≤ 0.20×</code>", meaning: "Industry level",
-    cir: tag("not-reached"),
-    counted: `${tag("passed")}<p>English best 0.149×, one seed. Indonesian 0.032×. ${kind("estimated")}</p>`
+    primary: tag("not-reached"),
+    diagnostic: `${tag("passed")}<p>Only against plain or older baselines on the laptop. ${kind("estimated")}</p>`
   },
   {
     gate: "<code>≤ 0.10×</code>", meaning: "Breakthrough level",
-    cir: tag("not-reached"),
-    counted: `${tag("partial")}<p>Indonesian and the average pass on two seeds. English does not. ${kind("estimated")}</p>`
+    primary: tag("not-reached"),
+    diagnostic: `${tag("passed")}<p>0.038 to 0.063 against plain or older baselines. Not a primary claim. ${kind("estimated")}</p>`
   }
 ];
 
@@ -241,8 +387,8 @@ const renderGates = () => table({
   cols: [
     { key: "gate", title: "Gate" },
     { key: "meaning", title: "Meaning" },
-    { key: "cir", title: "CIR specific organizations, D2" },
-    { key: "counted", title: "Generic counted organization, D1" }
+    { key: "primary", title: "Primary, against the strongest optimized Transformer" },
+    { key: "diagnostic", title: "Diagnostic, against weaker opponents" }
   ],
   rows: gates,
   className: "is-gates"
@@ -253,32 +399,104 @@ const renderGates = () => table({
 
 export const evidence = [
   {
+    finding: "Candidates against strong recipes on the GPU",
+    status: ["supported", "withheld"],
+    evidence: "No candidate reached 0.75 at 20M or 85M. Exact values are withheld for now.",
+    meaning: "The primary objective was not reached.",
+    limit: "One seed and one epoch. The opponents are partial, not complete.",
+    src: "I406, I410, I412 to I414"
+  },
+  {
+    finding: "A published 20M recipe against plain Transformers",
+    status: ["preliminary"],
+    evidence: `About 0.58× the time and 0.43× the FLOPs at matched quality. ${kind("measured")} ${kind("estimated")}`,
+    meaning: "Published recipes already hold much of an apparent win.",
+    limit: "One seed. The time ratio is measured, the FLOP ratio estimated.",
+    src: "I406"
+  },
+  {
+    finding: "Counted organization at the first GPU scale point",
+    status: ["preliminary"],
+    evidence: `Against published n gram interpolation: 0.51 to 0.57 on Wikipedia text. About 1.0 on web text. ${kind("estimated")}`,
+    meaning: "The edge disappears on text like the training data. Copying carries the rest.",
+    limit: "One seed and one epoch. 4.7M to 18.9M parameters.",
+    src: "I404"
+  },
+  {
+    finding: "Best laptop system against partial optimized opponents",
+    status: ["preliminary"],
+    evidence: `0.26 to 0.54 at up to 4M parameters. ${kind("estimated")}`,
+    meaning: "It survives partial opponents. A complete opponent is expected near 1.",
+    limit: "Every part is published. One seed.",
+    src: "I399, I401"
+  },
+  {
+    finding: "Best laptop system against a plain Transformer",
+    status: ["diagnostic"],
+    evidence: `0.038 in English, 0.055 on Indonesian Wikipedia. ${kind("estimated")}`,
+    meaning: "Large, but measured against a weak opponent.",
+    limit: "All parts are published. Not a primary claim.",
+    src: "I370, I396"
+  },
+  {
+    finding: "An original training compute lever",
+    status: ["closed"],
+    evidence: "Five first principles cycles found none. The search stopped by its own rule.",
+    meaning: "No CIR specific lever is known.",
+    limit: "Searched at laptop scale only.",
+    src: "I400 to I403"
+  },
+  {
+    finding: "Published shifts on the strong recipe",
+    status: ["closed", "withheld"],
+    evidence: "Cheap levers, a gated delta hybrid and an expert mixture gave small FLOP gains. None saved time.",
+    meaning: "Not a route to the signal gate at this scale.",
+    limit: "Our kernels and dispatch. One seed.",
+    src: "I410, I412 to I414"
+  },
+  {
+    finding: "Breakthrough gate passed on average",
+    status: ["superseded"],
+    evidence: "0.0625× was measured against TF LGN, not the strongest optimized Transformer.",
+    meaning: "Revoked as a headline under the 12 October charter.",
+    limit: "The measurement stands as a diagnostic ratio.",
+    src: "I316, I399, I404"
+  },
+  {
+    finding: "Table construction cost of 0.1 to 0.2%",
+    status: ["superseded"],
+    evidence: "Measured at about 0.65% of training time.",
+    meaning: "Still under 1%. The headline moves from 0.0625 to about 0.063.",
+    limit: "Auxiliary costs are now measured, not stated.",
+    src: "I359"
+  },
+  {
     finding: "Counted organization A039 vs TF LGN, average of both languages",
-    status: ["reproduced"],
+    status: ["reproduced", "diagnostic"],
     evidence: `Training cost to TF LGN quality 0.0625 and 0.0634×, two seeds. ${kind("estimated")}`,
-    meaning: "The cheapest organization measured. It passes the 0.10 gate on the average.",
-    limit: "Generic and prior art. The average is carried by Indonesian.",
+    meaning: "The cheapest organization measured on the laptop. Diagnostic under the charter of 12 October.",
+    limit: "Generic and prior art. About 0.063× with the measured table cost.",
     src: "I316, I318, I313"
   },
   {
     finding: "The same organization, per language",
-    status: ["supported"],
+    status: ["superseded"],
     evidence: `Indonesian 0.032×. English: A039 does not reach TF LGN quality; the best English setup reaches 0.149×. ${kind("estimated")}`,
     meaning: "A breakthrough level result in Indonesian, an industry level one in English.",
-    limit: "English best from one evaluation run. Data repetition differs by language.",
+    limit: "Later tests traced the gap to repetition and evaluation sets, not language.",
     src: "I337, I338, I339"
   },
   {
     finding: "English advantage under longer training",
-    status: ["contested"],
+    status: ["supported", "diagnostic"],
     evidence: `Against B1A at equal budget: 0.053× at 0.5×, then 0.121× at 1×. Not reached at 2× or 4×. ${kind("estimated")}`,
     meaning: "The English gain fades as the small English corpus repeats.",
-    limit: "Cause under test in R161.",
+    limit: "Repetition was confirmed as the main cause on 10 October.",
     src: "I340"
   },
   {
     finding: "Budget ladder against B1A, average",
-    status: ["supported"],
+    status: ["supported", "diagnostic"],
     evidence: `0.048, 0.063, 0.067 and 0.066× at 0.5×, 1×, 2× and 4× budget. ${kind("estimated")}`,
     meaning: "The average ratio stays flat across an eightfold budget range.",
     limit: "A fixed size opponent. A fitted multiplier of about 15× partly reflects its capacity limit.",
@@ -286,19 +504,19 @@ export const evidence = [
   },
   {
     finding: "Inference cost of a cheaper variant",
-    status: ["reproduced"],
+    status: ["reproduced", "diagnostic"],
     evidence: `Training 0.065 and 0.066×, prefill inference 0.48× TF LGN; 0.49× with overlapping chunks. ${kind("estimated")}`,
     meaning: "Cheaper to train and to read text, not only to train.",
-    limit: "Decoding token by token not measured. Count tables need about 434 MB of memory.",
+    limit: "Decoding was measured later. Values are withheld for now. Count tables need about 434 MB.",
     src: "I321, I323, I328, I333, I296"
   },
   {
     finding: "Text never seen in training",
-    status: ["reproduced"],
+    status: ["relabelled"],
     evidence: `Indonesian Wikipedia: 0.053 and 0.055× TF LGN, two seeds. ${kind("estimated")}`,
-    meaning: "The advantage does not vanish outside the training text.",
-    limit: "Same language. The gate is tuned on a little text from the new domain.",
-    src: "I324, I325"
+    meaning: "Held out text from the training source, not a new domain.",
+    limit: "Relabelled on 10 October. The earlier reading implied a domain shift.",
+    src: "I324, I325, I341"
   },
   {
     finding: "Copying and recall in the counted organization",
@@ -310,11 +528,11 @@ export const evidence = [
   },
   {
     finding: "Frontier attacks on the counted claim",
-    status: ["supported"],
+    status: ["superseded"],
     evidence: "Four opponent routes: n gram heads, larger Transformers, twice the training, and short contexts.",
     meaning: "None of them reached the counted organization's cost.",
-    limit: "Opponents up to width 448. Above 4× budget the frontier is unattacked.",
-    src: "I291, I293, I312, I335"
+    limit: "Opponents with the same published parts later reached 0.26 to 0.54.",
+    src: "I291, I293, I312, I335, I399"
   },
   {
     finding: "A010 beats a gated local global Transformer",
@@ -494,20 +712,27 @@ export const evidence = [
   },
   {
     finding: "Is data repetition the cause of the language gap?",
-    status: ["evaluating"],
-    evidence: "R161 trains on an Indonesian corpus cut to the English size.",
-    meaning: "Decides whether the claim is about language or about repetition.",
-    limit: "Running. One seed.",
-    src: "R161, H038"
+    status: ["supported", "withheld"],
+    evidence: "R161, R164 and R172 tested it. Exact values are withheld for now.",
+    meaning: "Mostly repetition and the evaluation sets, not language.",
+    limit: "One seed, at laptop scale.",
+    src: "I345, I346, I362"
   }
 ];
 
 // Evidence is grouped by where it stands, so negative results read as their own block.
+const groupOf = (st) =>
+  st.includes("evaluating") ? "evaluating"
+    : st.some((k) => ["superseded", "quarantined", "relabelled"].includes(k)) ? "superseded"
+      : st.some((k) => ["falsified", "closed"].includes(k)) ? "falsified"
+        : st.includes("diagnostic") ? "diagnostic"
+          : "current";
 const EVIDENCE_GROUPS = [
-  { title: "Current evidence", test: (st) => !st.some((k) => ["falsified", "superseded", "quarantined", "evaluating"].includes(k)) },
-  { title: "Falsified or closed", test: (st) => st.includes("falsified") },
-  { title: "Superseded or quarantined", test: (st) => st.some((k) => ["superseded", "quarantined"].includes(k)) },
-  { title: "Under evaluation", test: (st) => st.includes("evaluating") }
+  { key: "current", title: "Current evidence" },
+  { key: "diagnostic", title: "Diagnostic only, against weaker opponents" },
+  { key: "falsified", title: "Falsified or closed" },
+  { key: "superseded", title: "Superseded, relabelled or quarantined" },
+  { key: "evaluating", title: "Under evaluation" }
 ];
 
 const renderEvidence = () => {
@@ -516,7 +741,7 @@ const renderEvidence = () => {
 <td data-label="Evidence"><div class="dcell">${e.evidence}</div></td>
 <td data-label="Interpretation"><div class="dcell">${e.meaning}<p class="ev_limit"><span class="u-mono">Limitation</span> ${e.limit}</p></div></td>
 </tr>`;
-  const groups = EVIDENCE_GROUPS.map((g) => ({ ...g, rows: evidence.filter((e) => g.test(e.status)) })).filter((g) => g.rows.length);
+  const groups = EVIDENCE_GROUPS.map((g) => ({ ...g, rows: evidence.filter((e) => groupOf(e.status) === g.key) })).filter((g) => g.rows.length);
   return `<div class="dtable_wrap"><table class="dtable is-stack is-evidence" aria-label="CIR evidence table">
 <thead><tr><th scope="col">Finding</th><th scope="col">Evidence</th><th scope="col">Interpretation and limitation</th></tr></thead>
 ${groups.map((g) => `<tbody><tr class="dtable_group"><th scope="colgroup" colspan="3">${g.title} <span class="dtable_count">${g.rows.length}</span></th></tr>
@@ -527,10 +752,10 @@ ${g.rows.map(row).join("\n")}</tbody>`).join("\n")}
 // ---------- at a glance ----------
 
 export const glance = [
-  { label: "CIR specific advantage, D2", value: "Not reached", note: "CIR's own mixers only break even with B1A." },
-  { label: "Generic counted organization, D1", value: "0.06× average", note: "Indonesian 0.03×, English 0.15×. Prior art, small scale." },
-  { label: "Baselines", value: "B1A and TF LGN", note: "Cheapest Transformer, and the strongest at matched quality." },
-  { label: "Active now", value: "R161", note: "Does data repetition explain the language gap?" }
+  { label: "Primary lane", value: "Paused", note: "Since 15 October 2026. The target was not reached." },
+  { label: "Against strong recipes", value: "Not reached", note: "No candidate reached 0.75 at 20M or 85M parameters." },
+  { label: "Best laptop system", value: "0.26 to 0.54×", note: "Against partial optimized opponents. The counted edge was about 1.0 at 20M on web text." },
+  { label: "Next", value: "Research tasks", note: "The CIR record becomes tasks for AI research agents." }
 ];
 
 const renderGlance = () => `<dl class="glance">
@@ -658,7 +883,7 @@ ${countedPath.map((p, i) => `<li class="path_step">
 <span class="path_value">${p.range}×<span class="path_meta u-mono">${p.seeds} seed${p.seeds > 1 ? "s" : ""} · ${p.src}</span></span>
 </li>`).join("\n")}
 </ol>
-<figcaption>Training cost to reach TF LGN's final quality, averaged over English and Indonesian. Bars run from 0 to 0.25. Dashed lines mark the 0.10 and 0.20 gates. ${kind("estimated")}</figcaption>
+<figcaption>Training cost to reach TF LGN's final quality, averaged over English and Indonesian. Bars run from 0 to 0.25. Dashed lines mark the 0.10 and 0.20 gates. Laptop phase through 10 October, diagnostic under the charter of 12 October. ${kind("estimated")}</figcaption>
 </figure>
 ${table({
   label: "Counted organization results per language",
@@ -706,16 +931,20 @@ const renderCapabilities = () => table({
 // ---------- active experiments ----------
 
 export const experiments = [
-  { id: "R161", question: "Does the Indonesian advantage collapse when its corpus repeats as often as English?", status: "running",
-    note: "If yes, the claim is about data repetition. Normal pretraining sees data about once." },
-  { id: "Decode", question: "What does token by token generation cost, not only reading text?", status: "queued",
-    note: "Prefill is measured at 0.48 to 0.49×. Decoding is not." },
-  { id: "Tables", question: "Can the count tables shrink without losing quality?", status: "queued",
-    note: "They need about 434 MB today. Pruning rare entries hurt." },
-  { id: "English", question: "Does English improve with a larger corpus or a larger network?", status: "conditional",
-    note: "Chosen after R161. A larger corpus needs approval to download." },
-  { id: "Ladder", question: "Does the advantage hold against larger Transformers above 4× budget?", status: "conditional",
-    note: "Heavy runs. Beyond the current hardware budget." }
+  { id: "R161", question: "Does the Indonesian advantage collapse when its corpus repeats as often as English?", status: "done",
+    note: "Repetition and the evaluation sets explain most of the gap. Exact values are withheld." },
+  { id: "Decode", question: "What does token by token generation cost, not only reading text?", status: "done",
+    note: "Measured on 10 and 11 October. Values are withheld for now." },
+  { id: "Tables", question: "Can the count tables shrink without losing quality?", status: "done",
+    note: "Pruning and table size were measured. Values are withheld for now." },
+  { id: "English", question: "Does English improve with a larger corpus or a larger network?", status: "done",
+    note: "With English text seen less than once, English behaves like Indonesian." },
+  { id: "Ladder", question: "Does the advantage hold against larger Transformers above 4× budget?", status: "closed",
+    note: "Replaced by the GPU scale points of 14 and 15 October." },
+  { id: "S6", question: "Does a fine grained expert mixture with efficient dispatch beat the strong recipe?", status: "drafted",
+    note: "Runs only if the owner restarts the primary lane." },
+  { id: "S7", question: "Does a hybrid combined with that expert mixture beat it?", status: "drafted",
+    note: "Runs only if the owner restarts the primary lane." }
 ];
 
 const renderExperiments = () => table({
@@ -733,6 +962,14 @@ const renderExperiments = () => table({
 // ---------- timeline (newest first) ----------
 
 export const timeline = [
+  { date: "16 Oct", title: "Public update, some values withheld", body: "Conclusions and headline values are public. Exact outcomes from 10 to 15 October are withheld." },
+  { date: "15 Oct", title: "The primary lane is paused", body: "The owner paused it at 13:53 UTC. A new direction was chosen that afternoon." },
+  { date: "15 Oct", title: "Published shifts at 20M and 85M", body: "Cheap levers, a hybrid and an expert mixture gave small FLOP gains, none in time." },
+  { date: "14 Oct", title: "First GPU scale point", body: "The counted edge was about 1.0 on web text. A strong published recipe raised the bar." },
+  { date: "13 Oct", title: "Opponents built from published parts", body: "The laptop ratio rose to 0.26 to 0.54. Every part proved published. The lever search stopped." },
+  { date: "12 Oct", title: "Charter clarified", body: "The goal is training compute against the strongest optimized Transformer system. Novelty is optional." },
+  { date: "11 Oct", title: "Input memory joins the system", body: "Hashed n gram input embeddings joined the organization as A051. Prior art exists." },
+  { date: "10 Oct", title: "Language gap traced to repetition", body: "Three tests point to repetition and evaluation sets, not language. Three corrections followed." },
   { date: "10 Oct", title: "Per language correction", body: "The average hid a gap: Indonesian 0.032×, English 0.149× at best. Claims are now per language." },
   { date: "9 Oct", title: "Inference, budgets and new text", body: "Prefill at 0.48×, a flat ratio across four budgets, and 0.053× on unseen Wikipedia." },
   { date: "8 Oct", title: "The 0.10 gate on average", body: "A trained gate and a smaller network reached 0.0625×. Our own accounting was corrected by about 5%." },
