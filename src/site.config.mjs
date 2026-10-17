@@ -6,7 +6,7 @@ export default {
   // Public contact address. Leave empty until a real inbox exists:
   // the contact page then shows a neutral "address coming soon" note
   // instead of a mailto link.
-  contactEmail: "novenrizkia.8.5.6@gmail.com",
+  contactEmail: "dotrixai@gmail.com",
   // Official profiles. Shown in the footer and contact page, listed as sameAs.
   xUrl: "https://x.com/dotrixai",
   githubUrl: "https://github.com/dotrixai",
