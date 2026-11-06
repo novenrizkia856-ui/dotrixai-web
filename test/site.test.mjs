@@ -10,9 +10,10 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const dist = join(root, "dist");
 const pages = readdirSync(dist).filter((f) => f.endsWith(".html"));
 const read = (f) => readFileSync(join(dist, f), "utf8");
+const site = (await import(new URL("../src/site.config.mjs", import.meta.url))).default;
 
 test("every expected page is built", () => {
-  for (const p of ["index", "research", "cir", "philosophy", "evidence", "contact", "404"]) assert.ok(pages.includes(p + ".html"), p);
+  for (const p of ["index", "research", "heartwood", "antiphon", "cir", "philosophy", "evidence", "contact", "404"]) assert.ok(pages.includes(p + ".html"), p);
 });
 
 test("each page has one h1, a title, a description and a canonical url", () => {
@@ -21,7 +22,7 @@ test("each page has one h1, a title, a description and a canonical url", () => {
     assert.equal((html.match(/<h1\b/g) || []).length, 1, f + " h1 count");
     assert.match(html, /<title>[^<]+<\/title>/, f);
     assert.match(html, /<meta name="description" content="[^"]+">/, f);
-    assert.match(html, /<link rel="canonical" href="https:\/\/dotrixai\.com\/[^"]*">/, f);
+    assert.ok(html.includes(`<link rel="canonical" href="${site.origin}/`), f);
   }
 });
 
@@ -52,7 +53,7 @@ test("no inline style attributes, which the CSP would block", () => {
 });
 
 test("the current page is marked in the navigation", () => {
-  for (const [f, key] of [["cir.html", "cir"], ["research.html", "research"], ["contact.html", "contact"]]) {
+  for (const [f, key] of [["cir.html", "research"], ["research.html", "research"], ["heartwood.html", "heartwood"], ["antiphon.html", "antiphon"], ["contact.html", "contact"]]) {
     assert.match(read(f), new RegExp(`data-nav="${key}" aria-current="page"`), f);
   }
 });
@@ -68,18 +69,18 @@ test("the contact address matches site.config.mjs", async () => {
   }
 });
 
-test("dotrixai.com (no www) is the only host in canonical, og, sitemap and robots", () => {
+test("the configured active host is used in canonical, og, sitemap and robots", () => {
   for (const f of pages) {
     const html = read(f);
     assert.doesNotMatch(html, /https?:\/\/www\.dotrixai\.com/, f);
     for (const m of html.matchAll(/(?:rel="canonical" href|property="og:url" content|property="og:image" content|name="twitter:image" content)="([^"]+)"/g)) {
-      assert.match(m[1], /^https:\/\/dotrixai\.com\//, `${f}: ${m[1]}`);
+      assert.ok(m[1].startsWith(site.origin + "/"), `${f}: ${m[1]}`);
     }
   }
   for (const loc of readFileSync(join(dist, "sitemap.xml"), "utf8").matchAll(/<loc>([^<]+)<\/loc>/g)) {
-    assert.match(loc[1], /^https:\/\/dotrixai\.com\//, loc[1]);
+    assert.ok(loc[1].startsWith(site.origin + "/"), loc[1]);
   }
-  assert.match(readFileSync(join(dist, "robots.txt"), "utf8"), /Sitemap: https:\/\/dotrixai\.com\/sitemap\.xml/);
+  assert.ok(readFileSync(join(dist, "robots.txt"), "utf8").includes(`Sitemap: ${site.origin}/sitemap.xml`));
 });
 
 test("vercel.json never redirects between apex and www", () => {
@@ -96,7 +97,15 @@ test("preview hosts are noindex, production hosts are not", () => {
   const rule = vercel.headers.find((h) => h.headers.some((x) => x.key === "X-Robots-Tag"));
   assert.ok(rule, "X-Robots-Tag rule missing");
   const host = new RegExp("^" + rule.has.find((c) => c.type === "host").value + "$");
-  assert.ok(host.test("dotrixai-web.vercel.app"));
+  assert.ok(!host.test(new URL(site.origin).host), "active production host must not be noindex");
   assert.ok(host.test("dotrixai-web-git-main-someone.vercel.app"));
   for (const prod of ["dotrixai.com", "www.dotrixai.com"]) assert.ok(!host.test(prod), prod);
+});
+
+test("new research overviews do not disclose private experiment identifiers or metrics", () => {
+  for (const f of ["heartwood.html", "antiphon.html"]) {
+    const html = read(f);
+    assert.doesNotMatch(html, /\bNR-\d+|\bT3r\b|Tier CE|\d+(?:\.\d+)?\s*(?:%|CU\b|MiB\b)/i, f);
+    assert.doesNotMatch(html, /github\.com\/dotrixai\/(?:heartwood|dotrixai-office)|\/inbox\/|CHARTER\.md|LEDGER\.md/, f);
+  }
 });

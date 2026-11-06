@@ -1,6 +1,12 @@
 # dotrixai-web
 
-Website for **DotrixAI**, an independent AI research lab developing efficient, licensable AI technologies. Served at `dotrixai.com`.
+Website for **DotrixAI**, an independent AI research and technology institution. Current public host: **https://dotrixai-web.vercel.app**. Content reviewed on 6 November 2026.
+
+## Current research and disclosure
+
+Heartwood is the main research focus. The Antiphon Standard is an early research and design effort. CIR is idle; its earlier public evidence retains its original dates. Lab coordinated Efficiency Claims Check work is paused.
+
+The public Heartwood and Antiphon pages are purpose-written program overviews: research questions, broad scope, status and validation limits. They do not release experimental results, recipes, private code or specifications. Future updates need their own disclosure review. Do not copy internal research records into this repository.
 
 ## Stack
 
@@ -16,7 +22,7 @@ Static HTML and CSS with one small script. A dependency‑free Node build (`tool
 npm run dev            # dev server on http://localhost:5330, rebuilds on every page request
 npm run build          # build dist/, then run the copy-rule and link checks
 npm run check          # build + structural tests (test/site.test.mjs)
-npm run check:browser  # headless Chrome: errors, overflow, copy rules at desktop/tablet/phone
+npm run check:browser  # headless Chrome: errors, overflow, copy rules at desktop/compact/tablet/phone
                        # add --shots --full for full-page screenshots in work/shots/
 npm run brand          # regenerate logos, favicons and og.png from work/brand-src (needs Python + Pillow)
 ```
@@ -32,6 +38,8 @@ src/
   pages/              one file per route; the copy lives here
     index.html        /             home
     research.html     /research     scope, approach, technology stack, safety, long-term direction
+    heartwood.html    /heartwood    continual learning program overview and limitations
+    antiphon.html     /antiphon     proposed standard overview and limitations
     cir.html          /cir          the CIR research program
     philosophy.html   /philosophy   purpose, thesis, vision, mission, principles
     evidence.html     /evidence     publication approach and evidence standard
@@ -52,7 +60,7 @@ Each page starts with a `<!-- page { ... } -->` header holding its title, descri
 
 ## Updating the CIR page
 
-The parts of `/cir` that change with the research live in `src/data/cir.mjs` and render into `{{cir*}}` tokens. Take every number from the current files in `D:/CIR/research` and keep its ledger ID in `src`. Change a result's status rather than deleting it, so superseded results stay visible. The narrative sections (current claim, threats, limitations) are in `src/pages/cir.html` and need a read through on each update.
+The historical evidence on `/cir` lives in `src/data/cir.mjs` and renders into `{{cir*}}` tokens. Use only material cleared for public release. Preserve the original evidence dates and limitations; updating current program status does not make old measurements new. The narrative sections are in `src/pages/cir.html`.
 
 ## Copy rules
 
@@ -70,19 +78,19 @@ If you change the inline script in `src/partials/layout.html`, update its `sha25
 
 ## Domains
 
-`https://dotrixai.com` (no www) is the canonical host. Canonical tags, Open Graph URLs, `sitemap.xml` and `robots.txt` all use it, set by `origin` in `src/site.config.mjs`.
+`https://dotrixai-web.vercel.app` is the current canonical host while the custom domain is unavailable. Canonical tags, Open Graph URLs, `sitemap.xml` and `robots.txt` all use `origin` in `src/site.config.mjs`.
 
-The www redirect lives in **Vercel → Project → Settings → Domains**, not in `vercel.json`:
+If the custom domain is restored, verify DNS and TLS before switching `origin`. Apex and www redirects belong in **Vercel → Project → Settings → Domains**, not in `vercel.json`:
 
 - `dotrixai.com`: connected to the production branch, no redirect
 - `www.dotrixai.com`: redirect to `dotrixai.com`, 308 permanent
 
 Don't also add a host redirect to `vercel.json`. If the dashboard and the config disagree, requests loop between the two hosts. `npm run check` fails if one appears.
 
-`*.vercel.app` preview hosts send `X-Robots-Tag: noindex` so they aren't indexed as duplicates.
+Vercel preview hosts send `X-Robots-Tag: noindex`. The active production alias is excluded from that rule. The host checks follow the configured origin.
 
 ## Placeholders
 
 - The X profile is `xUrl` in `src/site.config.mjs` (footer icon, contact page, JSON-LD `sameAs`).
 - The contact address is `contactEmail` in `src/site.config.mjs` (currently the founder's email).
-- The Publications list on `/evidence` reads "No public papers yet". Add entries there once something is published.
+- `/evidence` separates program overviews from historical public research and formal papers. Add papers only once they are public.

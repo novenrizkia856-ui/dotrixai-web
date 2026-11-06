@@ -9,7 +9,7 @@
 //          [--menu]           phone only: open the mobile menu and screenshot
 //          [--eval "expr"]    extra expression, result printed per page
 //          [--pre "js"]       script injected before any page script
-//          [--only desktop|tablet|phone]
+//          [--only desktop|compact|tablet|phone]
 // Needs Chrome or Edge installed; set CHROME=path to override.
 import { createServer } from "node:http";
 import { readFile, mkdir, writeFile } from "node:fs/promises";
@@ -33,9 +33,10 @@ const menu = args.includes("--menu");
 const wheelStops = opt("--wheel") ? opt("--wheel").split(",").map(Number) : [];
 const preScript = opt("--pre");
 const pages = args.filter((a, i) => !a.startsWith("--") && !VALUED.has(args[i - 1]));
-const PAGES = pages.length ? pages : ["", "research", "cir", "philosophy", "evidence", "contact", "missing-page"];
+const PAGES = pages.length ? pages : ["", "research", "heartwood", "antiphon", "cir", "philosophy", "evidence", "contact", "missing-page"];
 const VIEWPORTS = [
   { name: "desktop", width: 1440, height: 900, mobile: false },
+  { name: "compact", width: 900, height: 900, mobile: false },
   { name: "tablet", width: 834, height: 1112, mobile: true },
   { name: "phone", width: 390, height: 844, mobile: true }
 ].filter((v) => !opt("--only") || v.name === opt("--only"));
