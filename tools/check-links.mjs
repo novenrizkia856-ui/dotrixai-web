@@ -27,7 +27,8 @@ for (const [file, src] of Object.entries(html)) {
     if (/^(https?:)?\/\//.test(ref)) { external.add(ref.replace(/\?.*/, "")); continue; }
     if (/^(mailto|tel):/.test(ref)) continue;
     if (/^[A-Za-z]:/.test(ref) || ref.includes(String.fromCharCode(92))) { problems.push(`${file}: local machine path ${ref}`); continue; }
-    const [path, hash] = ref.split("#");
+    const [pathWithQuery, hash] = ref.split("#");
+    const path = pathWithQuery.split("?")[0];
     if (!path) { if (hash && !ids(src).has(hash)) problems.push(`${file}: missing anchor #${hash}`); continue; }
     if (!path.startsWith("/")) { problems.push(`${file}: relative reference ${ref} (use root relative paths)`); continue; }
     if (/\.\w+$/.test(path) && !path.endsWith(".html")) {
